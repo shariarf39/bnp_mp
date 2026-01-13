@@ -265,173 +265,48 @@
 
     <!-- Gallery Grid -->
     <div class="category-sections">
-        <!-- Social Work Section -->
-        <div class="category-section">
-            <h2 class="category-title">সামাজিক কাজ ও মানবিক সহায়তা</h2>
-            <div class="gallery-grid">
-                <div class="gallery-item" data-category="social">
-                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect fill='%231a5f3a' width='400' height='300'/><circle cx='100' cy='100' r='40' fill='white' opacity='0.3'/><circle cx='200' cy='100' r='40' fill='white' opacity='0.3'/><circle cx='300' cy='100' r='40' fill='white' opacity='0.3'/><text x='50%25' y='70%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='25' font-family='Arial'>খাদ্য সাহায্য</text></svg>" alt="Food Distribution">
-                    <div class="gallery-overlay">
-                        <h3>খাদ্য সাহায্য বিতরণ</h3>
-                        <p>দরিদ্র পরিবারে খাদ্য সামগ্রী বিতরণ কর্মসূচি</p>
-                        <div class="meta">
-                            <span><i class="fas fa-calendar"></i> জানুয়ারি ২০২৬</span>
-                            <span><i class="fas fa-map-marker-alt"></i> ঢাকা</span>
-                        </div>
-                    </div>
-                </div>
+        @php
+            $categories = [
+                'social' => 'সামাজিক কাজ ও মানবিক সহায়তা',
+                'health' => 'স্বাস্থ্যসেবা কার্যক্রম',
+                'education' => 'শিক্ষা কার্যক্রম',
+                'events' => 'রাজনৈতিক অনুষ্ঠান ও জনসভা',
+            ];
+        @endphp
 
-                <div class="gallery-item" data-category="social">
-                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect fill='%232d8659' width='400' height='300'/><rect x='150' y='80' width='100' height='140' rx='10' fill='white' opacity='0.3'/><text x='50%25' y='75%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='25' font-family='Arial'>শীতবস্ত্র বিতরণ</text></svg>" alt="Winter Clothes">
-                    <div class="gallery-overlay">
-                        <h3>শীতবস্ত্র বিতরণ</h3>
-                        <p>শীতার্ত মানুষের মাঝে কম্বল ও শীতবস্ত্র বিতরণ</p>
-                        <div class="meta">
-                            <span><i class="fas fa-calendar"></i> ডিসেম্বর ২০২৫</span>
-                            <span><i class="fas fa-map-marker-alt"></i> ঢাকা</span>
+        @foreach($categories as $categoryKey => $categoryTitle)
+            @php
+                $categoryActivities = $activities->where('category', $categoryKey);
+            @endphp
+            @if($categoryActivities->count() > 0)
+            <div class="category-section">
+                <h2 class="category-title">{{ $categoryTitle }}</h2>
+                <div class="gallery-grid">
+                    @foreach($categoryActivities as $activity)
+                    <div class="gallery-item" data-category="{{ $activity->category }}">
+                        <img src="{{ asset('storage/' . $activity->image) }}" alt="{{ $activity->title }}">
+                        <div class="gallery-overlay">
+                            <h3>{{ $activity->title }}</h3>
+                            <p>{{ $activity->description }}</p>
+                            <div class="meta">
+                                <span><i class="fas fa-calendar"></i> {{ $activity->created_at->format('F Y') }}</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="gallery-item" data-category="social">
-                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect fill='%233aa066' width='400' height='300'/><rect x='50' y='100' width='300' height='120' rx='10' fill='white' opacity='0.3'/><text x='50%25' y='70%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='25' font-family='Arial'>বন্যা ত্রাণ</text></svg>" alt="Flood Relief">
-                    <div class="gallery-overlay">
-                        <h3>বন্যা ত্রাণ কার্যক্রম</h3>
-                        <p>বন্যা দুর্গত এলাকায় ত্রাণ সামগ্রী বিতরণ</p>
-                        <div class="meta">
-                            <span><i class="fas fa-calendar"></i> আগস্ট ২০২৫</span>
-                            <span><i class="fas fa-map-marker-alt"></i> বিভিন্ন জেলা</span>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
-        </div>
+            @endif
+        @endforeach
 
-        <!-- Health Section -->
+        @if($activities->count() == 0)
         <div class="category-section">
-            <h2 class="category-title">স্বাস্থ্যসেবা কার্যক্রম</h2>
-            <div class="gallery-grid">
-                <div class="gallery-item" data-category="health">
-                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect fill='%231a5f3a' width='400' height='300'/><rect x='170' y='100' width='60' height='20' fill='white' opacity='0.4'/><rect x='190' y='80' width='20' height='60' fill='white' opacity='0.4'/><text x='50%25' y='75%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='22' font-family='Arial'>বিনামূল্যে চিকিৎসা</text></svg>" alt="Free Medical Camp">
-                    <div class="gallery-overlay">
-                        <h3>বিনামূল্যে চিকিৎসা শিবির</h3>
-                        <p>গরীব ও অসহায় মানুষের জন্য চিকিৎসা সেবা</p>
-                        <div class="meta">
-                            <span><i class="fas fa-calendar"></i> নভেম্বর ২০২৫</span>
-                            <span><i class="fas fa-map-marker-alt"></i> ঢাকা</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="gallery-item" data-category="health">
-                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect fill='%232d8659' width='400' height='300'/><circle cx='200' cy='120' r='50' fill='white' opacity='0.3'/><rect x='185' y='100' width='30' height='10' fill='white' opacity='0.4'/><text x='50%25' y='75%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='22' font-family='Arial'>ওষুধ বিতরণ</text></svg>" alt="Medicine Distribution">
-                    <div class="gallery-overlay">
-                        <h3>ওষুধ বিতরণ কর্মসূচি</h3>
-                        <p>দরিদ্র রোগীদের মধ্যে ওষুধ বিতরণ</p>
-                        <div class="meta">
-                            <span><i class="fas fa-calendar"></i> অক্টোবর ২০২৫</span>
-                            <span><i class="fas fa-map-marker-alt"></i> ঢাকা</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="gallery-item" data-category="health">
-                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect fill='%233aa066' width='400' height='300'/><rect x='150' y='80' width='100' height='100' rx='10' fill='white' opacity='0.3'/><text x='50%25' y='75%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='22' font-family='Arial'>স্বাস্থ্য সচেতনতা</text></svg>" alt="Health Awareness">
-                    <div class="gallery-overlay">
-                        <h3>স্বাস্থ্য সচেতনতা কর্মসূচি</h3>
-                        <p>জনগণকে স্বাস্থ্য বিষয়ে সচেতন করা</p>
-                        <div class="meta">
-                            <span><i class="fas fa-calendar"></i> সেপ্টেম্বর ২০২৫</span>
-                            <span><i class="fas fa-map-marker-alt"></i> বিভিন্ন এলাকা</span>
-                        </div>
-                    </div>
-                </div>
+            <div style="text-align: center; padding: 3rem; color: #6b7280;">
+                <i class="fas fa-images" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                <p>কোনো ছবি পাওয়া যায়নি। অ্যাডমিন প্যানেল থেকে ছবি যোগ করুন।</p>
             </div>
         </div>
-
-        <!-- Education Section -->
-        <div class="category-section">
-            <h2 class="category-title">শিক্ষা কার্যক্রম</h2>
-            <div class="gallery-grid">
-                <div class="gallery-item" data-category="education">
-                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect fill='%231a5f3a' width='400' height='300'/><rect x='100' y='80' width='200' height='140' rx='5' fill='white' opacity='0.3'/><text x='50%25' y='75%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='22' font-family='Arial'>বই বিতরণ</text></svg>" alt="Book Distribution">
-                    <div class="gallery-overlay">
-                        <h3>শিক্ষার্থীদের মাঝে বই বিতরণ</h3>
-                        <p>দরিদ্র শিক্ষার্থীদের বিনামূল্যে বই প্রদান</p>
-                        <div class="meta">
-                            <span><i class="fas fa-calendar"></i> জানুয়ারি ২০২৬</span>
-                            <span><i class="fas fa-map-marker-alt"></i> ঢাকা</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="gallery-item" data-category="education">
-                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect fill='%232d8659' width='400' height='300'/><circle cx='200' cy='120' r='60' fill='white' opacity='0.3'/><polygon points='200,95 215,130 185,130' fill='white' opacity='0.4'/><text x='50%25' y='75%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='22' font-family='Arial'>বৃত্তি প্রদান</text></svg>" alt="Scholarship">
-                    <div class="gallery-overlay">
-                        <h3>মেধাবী শিক্ষার্থীদের বৃত্তি</h3>
-                        <p>মেধাবী ও দরিদ্র শিক্ষার্থীদের শিক্ষা বৃত্তি</p>
-                        <div class="meta">
-                            <span><i class="fas fa-calendar"></i> ডিসেম্বর ২০২৫</span>
-                            <span><i class="fas fa-map-marker-alt"></i> ঢাকা</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="gallery-item" data-category="education">
-                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect fill='%233aa066' width='400' height='300'/><rect x='120' y='90' width='160' height='100' rx='10' fill='white' opacity='0.3'/><text x='50%25' y='75%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='22' font-family='Arial'>কম্পিউটার প্রশিক্ষণ</text></svg>" alt="Computer Training">
-                    <div class="gallery-overlay">
-                        <h3>কম্পিউটার প্রশিক্ষণ কর্মসূচি</h3>
-                        <p>তরুণদের জন্য বিনামূল্যে কম্পিউটার প্রশিক্ষণ</p>
-                        <div class="meta">
-                            <span><i class="fas fa-calendar"></i> নভেম্বর ২০২৫</span>
-                            <span><i class="fas fa-map-marker-alt"></i> ঢাকা</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Events Section -->
-        <div class="category-section">
-            <h2 class="category-title">রাজনৈতিক অনুষ্ঠান ও জনসভা</h2>
-            <div class="gallery-grid">
-                <div class="gallery-item" data-category="events">
-                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect fill='%231a5f3a' width='400' height='300'/><circle cx='100' cy='120' r='30' fill='white' opacity='0.2'/><circle cx='200' cy='120' r='30' fill='white' opacity='0.2'/><circle cx='300' cy='120' r='30' fill='white' opacity='0.2'/><text x='50%25' y='75%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='25' font-family='Arial'>জনসভা</text></svg>" alt="Public Rally">
-                    <div class="gallery-overlay">
-                        <h3>জনসভা ও সমাবেশ</h3>
-                        <p>জনগণের সাথে সরাসরি মতবিনিময়</p>
-                        <div class="meta">
-                            <span><i class="fas fa-calendar"></i> জানুয়ারি ২০২৬</span>
-                            <span><i class="fas fa-map-marker-alt"></i> ঢাকা</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="gallery-item" data-category="events">
-                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect fill='%232d8659' width='400' height='300'/><rect x='50' y='100' width='300' height='80' rx='10' fill='white' opacity='0.3'/><text x='50%25' y='75%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='25' font-family='Arial'>দলীয় সভা</text></svg>" alt="Party Meeting">
-                    <div class="gallery-overlay">
-                        <h3>দলীয় সভা ও মিটিং</h3>
-                        <p>দলীয় কর্মীদের সাথে পরামর্শ সভা</p>
-                        <div class="meta">
-                            <span><i class="fas fa-calendar"></i> ডিসেম্বর ২০২৫</span>
-                            <span><i class="fas fa-map-marker-alt"></i> ঢাকা</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="gallery-item" data-category="events">
-                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect fill='%233aa066' width='400' height='300'/><polygon points='200,80 220,140 180,140' fill='white' opacity='0.3'/><rect x='150' y='140' width='100' height='60' fill='white' opacity='0.3'/><text x='50%25' y='80%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='25' font-family='Arial'>প্রচারণা</text></svg>" alt="Campaign">
-                    <div class="gallery-overlay">
-                        <h3>নির্বাচনী প্রচারণা</h3>
-                        <p>জনগণের দোরগোড়ায় প্রচারণা</p>
-                        <div class="meta">
-                            <span><i class="fas fa-calendar"></i> জানুয়ারি ২০২৬</span>
-                            <span><i class="fas fa-map-marker-alt"></i> বিভিন্ন এলাকা</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @endif
     </div>
 </section>
 

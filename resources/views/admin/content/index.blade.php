@@ -158,10 +158,176 @@
             </div>
         </div>
 
+        <!-- Footer Contact Section -->
+        <div class="content-section">
+            <h3><i class="fas fa-address-card"></i> ফুটার যোগাযোগ</h3>
+            
+            @php
+                $footerContents = isset($contents['footer']) ? $contents['footer'] : collect([]);
+            @endphp
+            
+            <div class="form-group">
+                <label for="footer_about_title">ফুটার সম্পর্কে শিরোনাম</label>
+                <input type="text" id="footer_about_title" name="contents[footer_about_title]" 
+                    value="{{ $footerContents->where('key', 'footer_about_title')->first()->value ?? 'আমাদের সম্পর্কে' }}"
+                    placeholder="আমাদের সম্পর্কে">
+                <input type="hidden" name="sections[footer_about_title]" value="footer">
+            </div>
+
+            <div class="form-group">
+                <label for="footer_about_text">ফুটার সম্পর্কে বিবরণ</label>
+                <textarea id="footer_about_text" name="contents[footer_about_text]" 
+                    placeholder="গণতন্ত্রের পথেই মুক্তি...">{{ $footerContents->where('key', 'footer_about_text')->first()->value ?? 'গণতন্ত্রের পথেই মুক্তি, যেখানে আপনার প্রতিটি কথাই মূল্যবান এবং প্রতিটি ভোটই গড়বে আমাদের জাতির ভাগ্য।' }}</textarea>
+                <input type="hidden" name="sections[footer_about_text]" value="footer">
+            </div>
+
+            <div class="form-group">
+                <label for="footer_facebook_url">ফেইসবুক লিংক</label>
+                <input type="text" id="footer_facebook_url" name="contents[footer_facebook_url]" 
+                    value="{{ $footerContents->where('key', 'footer_facebook_url')->first()->value ?? '#' }}"
+                    placeholder="https://facebook.com/...">
+                <input type="hidden" name="sections[footer_facebook_url]" value="footer">
+            </div>
+
+            <div class="form-group">
+                <label for="footer_youtube_url">ইউটিউব লিংক</label>
+                <input type="text" id="footer_youtube_url" name="contents[footer_youtube_url]" 
+                    value="{{ $footerContents->where('key', 'footer_youtube_url')->first()->value ?? '#' }}"
+                    placeholder="https://youtube.com/...">
+                <input type="hidden" name="sections[footer_youtube_url]" value="footer">
+            </div>
+
+            <div class="form-group">
+                <label for="footer_twitter_url">টুইটার লিংক</label>
+                <input type="text" id="footer_twitter_url" name="contents[footer_twitter_url]" 
+                    value="{{ $footerContents->where('key', 'footer_twitter_url')->first()->value ?? '#' }}"
+                    placeholder="https://twitter.com/...">
+                <input type="hidden" name="sections[footer_twitter_url]" value="footer">
+            </div>
+
+            <div class="form-group">
+                <label for="footer_phone">ফোন নম্বর</label>
+                <input type="text" id="footer_phone" name="contents[footer_phone]" 
+                    value="{{ $footerContents->where('key', 'footer_phone')->first()->value ?? '+৮৮০ ১XXX-XXXXXX' }}"
+                    placeholder="+৮৮০ ১XXX-XXXXXX">
+                <input type="hidden" name="sections[footer_phone]" value="footer">
+            </div>
+
+            <div class="form-group">
+                <label for="footer_email">ইমেইল ঠিকানা</label>
+                <input type="email" id="footer_email" name="contents[footer_email]" 
+                    value="{{ $footerContents->where('key', 'footer_email')->first()->value ?? 'info@example.com' }}"
+                    placeholder="info@example.com">
+                <input type="hidden" name="sections[footer_email]" value="footer">
+            </div>
+
+            <div class="form-group">
+                <label for="footer_address">ঠিকানা</label>
+                <input type="text" id="footer_address" name="contents[footer_address]" 
+                    value="{{ $footerContents->where('key', 'footer_address')->first()->value ?? 'ঢাকা, বাংলাদেশ' }}"
+                    placeholder="ঢাকা, বাংলাদেশ">
+                <input type="hidden" name="sections[footer_address]" value="footer">
+            </div>
+
+            <div class="form-group">
+                <label for="footer_copyright">কপিরাইট টেক্সট</label>
+                <input type="text" id="footer_copyright" name="contents[footer_copyright]" 
+                    value="{{ $footerContents->where('key', 'footer_copyright')->first()->value ?? 'BNP রাজনৈতিক নেতা। সর্বস্বত্ব সংরক্ষিত।' }}"
+                    placeholder="BNP রাজনৈতিক নেতা। সর্বস্বত্ব সংরক্ষিত।">
+                <input type="hidden" name="sections[footer_copyright]" value="footer">
+            </div>
+        </div>
+
+        <!-- About Page Section -->
+        <div class="content-section">
+            <h3><i class="fas fa-image"></i> আমাদের সম্পর্কে</h3>
+            
+            <div class="form-group">
+                <label for="about_logo">লোগো</label>
+                <div id="upload-area" style="border: 2px dashed #e2e8f0; border-radius: 10px; padding: 2rem; text-align: center; margin-bottom: 1rem;">
+                    <div id="logo-preview" style="margin-bottom: 1rem;">
+                        @php
+                            $aboutLogo = isset($contents['about']) ? $contents['about']->where('key', 'about_logo')->first() : null;
+                        @endphp
+                        @if($aboutLogo && $aboutLogo->value)
+                            <img src="{{ asset('storage/' . $aboutLogo->value) }}" 
+                                 alt="About Logo" style="max-width: 150px; max-height: 150px; border-radius: 10px;">
+                        @endif
+                    </div>
+                    <input type="file" id="logo_upload" accept="image/*" style="display: none;">
+                    <button type="button" id="upload-btn" onclick="document.getElementById('logo_upload').click()" 
+                            style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; cursor: pointer;">
+                        <i class="fas fa-upload"></i> লোগো আপলোড করুন
+                    </button>
+                    <p style="margin-top: 0.5rem; color: #6b7280; font-size: 0.875rem;">JPEG, PNG, JPG, GIF (সর্বোচ্চ ২MB)</p>
+                    <div id="upload-status" style="margin-top: 0.5rem; font-size: 0.875rem;"></div>
+                </div>
+                <input type="text" id="about_logo" name="contents[about_logo]" 
+                    value="{{ $aboutLogo->value ?? '' }}"
+                    readonly style="background-color: #f9fafb;">
+                <input type="hidden" name="sections[about_logo]" value="about">
+            </div>
+        </div>
+
         <div class="save-btn-container">
             <button type="submit" class="btn btn-primary">
                 <i class="fas fa-save"></i> সংরক্ষণ করুন
             </button>
         </div>
     </form>
+
+    <script>
+    document.getElementById('logo_upload').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const formData = new FormData();
+        formData.append('logo', file);
+        formData.append('_token', '{{ csrf_token() }}');
+
+        const uploadBtn = document.getElementById('upload-btn');
+        const statusDiv = document.getElementById('upload-status');
+        uploadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> আপলোড হচ্ছে...';
+        uploadBtn.disabled = true;
+        statusDiv.innerHTML = '<span style="color: #6b7280;">আপলোড হচ্ছে...</span>';
+
+        fetch('{{ route("admin.upload.about.logo") }}', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                return response.text().then(text => {
+                    throw new Error(text);
+                });
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                // Update the image preview
+                const previewDiv = document.getElementById('logo-preview');
+                previewDiv.innerHTML = `<img src="${data.url}" alt="About Logo" style="max-width: 150px; max-height: 150px; border-radius: 10px;">`;
+
+                // Update the hidden input
+                document.getElementById('about_logo').value = data.path;
+
+                statusDiv.innerHTML = '<span style="color: #10b981;">✓ লোগো সফলভাবে আপলোড হয়েছে!</span>';
+            } else {
+                statusDiv.innerHTML = '<span style="color: #ef4444;">✗ আপলোড ব্যর্থ: ' + data.message + '</span>';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            statusDiv.innerHTML = '<span style="color: #ef4444;">✗ আপলোড করতে সমস্যা হয়েছে। কনসোল চেক করুন।</span>';
+        })
+        .finally(() => {
+            uploadBtn.innerHTML = '<i class="fas fa-upload"></i> লোগো আপলোড করুন';
+            uploadBtn.disabled = false;
+        });
+    });
+    </script>
 @endsection

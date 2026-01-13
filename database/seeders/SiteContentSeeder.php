@@ -50,10 +50,38 @@ class SiteContentSeeder extends Seeder
             ['key' => 'goal6_icon', 'value' => 'book-open', 'section' => 'goals'],
             ['key' => 'goal6_title', 'value' => 'শিক্ষার প্রতি মনোযোগ', 'section' => 'goals'],
             ['key' => 'goal6_description', 'value' => 'শিক্ষার মান উন্নয়ন এবং সবার জন্য সমান শিক্ষার সুযোগ নিশ্চিত করা। শিক্ষিত সমাজই দেশের পথ প্রদর্শক এবং উন্নয়নের চালিকা শক্তি।', 'section' => 'goals'],
+            
+            // Leader Section
+            ['key' => 'leader_image', 'value' => '', 'section' => 'leader'],
+            ['key' => 'leader_badge', 'value' => 'তরুণ প্রজন্মের আদর্শ', 'section' => 'leader'],
+            ['key' => 'leader_title', 'value' => 'তরুণ প্রজন্মের আদর্শিক নেতা', 'section' => 'leader'],
+            ['key' => 'leader_description', 'value' => 'সকলের অংশগ্রহণে উন্নয়ন—মানুষের অধিকার, ন্যায়বিচার ও সমান সুযোগ নিশ্চিত করাই লক্ষ্য।', 'section' => 'leader'],
+            ['key' => 'leader_bio', 'value' => 'রাজনৈতিক জীবনের শুরু হয়েছিল ছাত্র রাজনীতিতে যোগদানের মাধ্যমে। একজন মেধাবী ছাত্রনেতা হিসেবে তরুণদের অধিকার আদায়ে সর্বদা সোচ্চার থেকেছেন।', 'section' => 'leader'],
+            ['key' => 'leader_value1', 'value' => 'জনসেবায় স্বচ্ছতা ও জবাবদিহিতা', 'section' => 'leader'],
+            ['key' => 'leader_value2', 'value' => 'দ্রুত সাড়া ও বাস্তবসম্মত উদ্যোগ', 'section' => 'leader'],
+            ['key' => 'leader_value3', 'value' => 'সমাজের প্রতিটি মানুষের অন্তর্ভুক্তি', 'section' => 'leader'],
+            ['key' => 'leader_value4', 'value' => 'শিক্ষা-স্বাস্থ্যকে অগ্রাধিকার', 'section' => 'leader'],
+            
+            // Footer Contact Section
+            ['key' => 'footer_about_title', 'value' => 'আমাদের সম্পর্কে', 'section' => 'footer'],
+            ['key' => 'footer_about_text', 'value' => 'গণতন্ত্রের পথেই মুক্তি, যেখানে আপনার প্রতিটি কথাই মূল্যবান এবং প্রতিটি ভোটই গড়বে আমাদের জাতির ভাগ্য।', 'section' => 'footer'],
+            ['key' => 'footer_facebook_url', 'value' => '#', 'section' => 'footer'],
+            ['key' => 'footer_youtube_url', 'value' => '#', 'section' => 'footer'],
+            ['key' => 'footer_twitter_url', 'value' => '#', 'section' => 'footer'],
+            ['key' => 'footer_phone', 'value' => '+৮৮০ ১XXX-XXXXXX', 'section' => 'footer'],
+            ['key' => 'footer_email', 'value' => 'info@example.com', 'section' => 'footer'],
+            ['key' => 'footer_address', 'value' => 'ঢাকা, বাংলাদেশ', 'section' => 'footer'],
+            ['key' => 'footer_copyright', 'value' => 'BNP রাজনৈতিক নেতা। সর্বস্বত্ব সংরক্ষিত।', 'section' => 'footer'],
+            
+            // About Page Logo
+            ['key' => 'about_logo', 'value' => '', 'section' => 'about'],
         ];
 
         foreach ($contents as $content) {
-            SiteContent::create($content);
+            SiteContent::updateOrCreate(
+                ['key' => $content['key']],
+                $content
+            );
         }
     }
 }

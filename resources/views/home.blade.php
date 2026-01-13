@@ -1060,32 +1060,36 @@
 <section class="profile-section">
     <div class="profile-content">
         <div class="profile-image">
-            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&h=700&fit=crop" alt="Political Leader" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 500%22><defs><linearGradient id=%22grad2%22 x1=%220%25%22 y1=%220%25%22 x2=%22100%25%22 y2=%22100%25%22><stop offset=%220%25%22 style=%22stop-color:%234CAF50;stop-opacity:1%22 /><stop offset=%22100%25%22 style=%22stop-color:%232196F3;stop-opacity:1%22 /></linearGradient></defs><rect fill=%22url(%23grad2)%22 width=%22400%22 height=%22500%22/><circle cx=%22200%22 cy=%22150%22 r=%2280%22 fill=%22white%22 opacity=%220.3%22/><rect x=%22120%22 y=%22250%22 width=%22160%22 height=%22200%22 rx=%2210%22 fill=%22white%22 opacity=%220.3%22/><text x=%2250%25%22 y=%2295%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2230%22 font-family=%22Arial%22>BNP নেতা</text></svg>'">
+            @if(!empty($content['leader_image']))
+                <img src="{{ asset('storage/' . $content['leader_image']) }}" alt="Political Leader">
+            @else
+                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&h=700&fit=crop" alt="Political Leader" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 500%22><defs><linearGradient id=%22grad2%22 x1=%220%25%22 y1=%220%25%22 x2=%22100%25%22 y2=%22100%25%22><stop offset=%220%25%22 style=%22stop-color:%234CAF50;stop-opacity:1%22 /><stop offset=%22100%25%22 style=%22stop-color:%232196F3;stop-opacity:1%22 /></linearGradient></defs><rect fill=%22url(%23grad2)%22 width=%22400%22 height=%22500%22/><circle cx=%22200%22 cy=%22150%22 r=%2280%22 fill=%22white%22 opacity=%220.3%22/><rect x=%22120%22 y=%22250%22 width=%22160%22 height=%22200%22 rx=%2210%22 fill=%22white%22 opacity=%220.3%22/><text x=%2250%25%22 y=%2295%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2230%22 font-family=%22Arial%22>BNP নেতা</text></svg>'">
+            @endif
             <div class="profile-badge">
-                <i class="fas fa-star"></i> তরুণ প্রজন্মের আদর্শ
+                <i class="fas fa-star"></i> {{ $content['leader_badge'] ?? 'তরুণ প্রজন্মের আদর্শ' }}
             </div>
         </div>
         <div class="profile-text">
-            <h2>তরুণ প্রজন্মের আদর্শিক নেতা</h2>
-            <p>সকলের অংশগ্রহণে উন্নয়ন—মানুষের অধিকার, ন্যায়বিচার ও সমান সুযোগ নিশ্চিত করাই লক্ষ্য।</p>
-            <p>রাজনৈতিক জীবনের শুরু হয়েছিল ছাত্র রাজনীতিতে যোগদানের মাধ্যমে। একজন মেধাবী ছাত্রনেতা হিসেবে তরুণদের অধিকার আদায়ে সর্বদা সোচ্চার থেকেছেন।</p>
+            <h2>{{ $content['leader_title'] ?? 'তরুণ প্রজন্মের আদর্শিক নেতা' }}</h2>
+            <p>{{ $content['leader_description'] ?? 'সকলের অংশগ্রহণে উন্নয়ন—মানুষের অধিকার, ন্যায়বিচার ও সমান সুযোগ নিশ্চিত করাই লক্ষ্য।' }}</p>
+            <p>{{ $content['leader_bio'] ?? 'রাজনৈতিক জীবনের শুরু হয়েছিল ছাত্র রাজনীতিতে যোগদানের মাধ্যমে। একজন মেধাবী ছাত্রনেতা হিসেবে তরুণদের অধিকার আদায়ে সর্বদা সোচ্চার থেকেছেন।' }}</p>
             
             <div class="values-list">
                 <div class="value-item">
                     <i class="fas fa-check-circle"></i>
-                    <span>জনসেবায় স্বচ্ছতা ও জবাবদিহিতা</span>
+                    <span>{{ $content['leader_value1'] ?? 'জনসেবায় স্বচ্ছতা ও জবাবদিহিতা' }}</span>
                 </div>
                 <div class="value-item">
                     <i class="fas fa-check-circle"></i>
-                    <span>দ্রুত সাড়া ও বাস্তবসম্মত উদ্যোগ</span>
+                    <span>{{ $content['leader_value2'] ?? 'দ্রুত সাড়া ও বাস্তবসম্মত উদ্যোগ' }}</span>
                 </div>
                 <div class="value-item">
                     <i class="fas fa-check-circle"></i>
-                    <span>সমাজের প্রতিটি মানুষের অন্তর্ভুক্তি</span>
+                    <span>{{ $content['leader_value3'] ?? 'সমাজের প্রতিটি মানুষের অন্তর্ভুক্তি' }}</span>
                 </div>
                 <div class="value-item">
                     <i class="fas fa-check-circle"></i>
-                    <span>শিক্ষা-স্বাস্থ্যকে অগ্রাধিকার</span>
+                    <span>{{ $content['leader_value4'] ?? 'শিক্ষা-স্বাস্থ্যকে অগ্রাধিকার' }}</span>
                 </div>
             </div>
 
@@ -1104,34 +1108,53 @@
         <p class="section-subtitle">মানবিক সহায়তা, স্বাস্থ্যসেবা, সামাজিক উন্নয়ন এবং মাঠপর্যায়ের উদ্যোগের কিছু ঝলক।</p>
         
         <div class="gallery-grid">
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=400&h=400&fit=crop" alt="Gallery 1" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 400%22><defs><linearGradient id=%22g1%22 x1=%220%25%22 y1=%220%25%22 x2=%22100%25%22 y2=%22100%25%22><stop offset=%220%25%22 style=%22stop-color:%234CAF50%22/><stop offset=%22100%25%22 style=%22stop-color:%232196F3%22/></linearGradient></defs><rect fill=%22url(%23g1)%22 width=%22400%22 height=%22400%22/><text x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2240%22>সামাজিক কাজ</text></svg>'">
-                <div class="gallery-overlay">
-                    <h4>মানবিক সহায়তা</h4>
-                    <p>দরিদ্র পরিবারে খাদ্য সামগ্রী বিতরণ</p>
+            @if($activities && $activities->count() > 0)
+                @foreach($activities as $activity)
+                    <div class="gallery-item">
+                        @if($activity->image)
+                            <img src="{{ asset('storage/' . $activity->image) }}" alt="{{ $activity->title }}">
+                        @else
+                            <img src="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 400%22><defs><linearGradient id=%22g{{ $loop->iteration }}%22 x1=%220%25%22 y1=%220%25%22 x2=%22100%25%22 y2=%22100%25%22><stop offset=%220%25%22 style=%22stop-color:%234CAF50%22/><stop offset=%22100%25%22 style=%22stop-color:%232196F3%22/></linearGradient></defs><rect fill=%22url(%23g{{ $loop->iteration }})%22 width=%22400%22 height=%22400%22/><text x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2235%22>{{ $activity->title }}</text></svg>" alt="{{ $activity->title }}">
+                        @endif
+                        <div class="gallery-overlay">
+                            <h4>{{ $activity->title }}</h4>
+                            @if($activity->description)
+                                <p>{{ Str::limit($activity->description, 60) }}</p>
+                            @endif
+                        </div>
+                    </div>
+                @endforeach
+            @else
+                <!-- Fallback static content if no activities -->
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=400&h=400&fit=crop" alt="Gallery 1" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 400%22><defs><linearGradient id=%22g1%22 x1=%220%25%22 y1=%220%25%22 x2=%22100%25%22 y2=%22100%25%22><stop offset=%220%25%22 style=%22stop-color:%234CAF50%22/><stop offset=%22100%25%22 style=%22stop-color:%232196F3%22/></linearGradient></defs><rect fill=%22url(%23g1)%22 width=%22400%22 height=%22400%22/><text x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2240%22>সামাজিক কাজ</text></svg>'">
+                    <div class="gallery-overlay">
+                        <h4>মানবিক সহায়তা</h4>
+                        <p>দরিদ্র পরিবারে খাদ্য সামগ্রী বিতরণ</p>
+                    </div>
                 </div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?w=400&h=400&fit=crop" alt="Gallery 2" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 400%22><defs><linearGradient id=%22g2%22 x1=%220%25%22 y1=%220%25%22 x2=%22100%25%22 y2=%22100%25%22><stop offset=%220%25%22 style=%22stop-color:%232196F3%22/><stop offset=%22100%25%22 style=%22stop-color:%239C27B0%22/></linearGradient></defs><rect fill=%22url(%23g2)%22 width=%22400%22 height=%22400%22/><text x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2240%22>স্বাস্থ্যসেবা</text></svg>'">
-                <div class="gallery-overlay">
-                    <h4>স্বাস্থ্যসেবা কর্মসূচি</h4>
-                    <p>বিনামূল্যে চিকিৎসা শিবির</p>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?w=400&h=400&fit=crop" alt="Gallery 2" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 400%22><defs><linearGradient id=%22g2%22 x1=%220%25%22 y1=%220%25%22 x2=%22100%25%22 y2=%22100%25%22><stop offset=%220%25%22 style=%22stop-color:%232196F3%22/><stop offset=%22100%25%22 style=%22stop-color:%239C27B0%22/></linearGradient></defs><rect fill=%22url(%23g2)%22 width=%22400%22 height=%22400%22/><text x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2240%22>স্বাস্থ্যসেবা</text></svg>'">
+                    <div class="gallery-overlay">
+                        <h4>স্বাস্থ্যসেবা কর্মসূচি</h4>
+                        <p>বিনামূল্যে চিকিৎসা শিবির</p>
+                    </div>
                 </div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&h=400&fit=crop" alt="Gallery 3" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 400%22><defs><linearGradient id=%22g3%22 x1=%220%25%22 y1=%220%25%22 x2=%22100%25%22 y2=%22100%25%22><stop offset=%220%25%22 style=%22stop-color:%239C27B0%22/><stop offset=%22100%25%22 style=%22stop-color:%23FF5722%22/></linearGradient></defs><rect fill=%22url(%23g3)%22 width=%22400%22 height=%22400%22/><text x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2235%22>শিক্ষা কর্মসূচি</text></svg>'">
-                <div class="gallery-overlay">
-                    <h4>শিক্ষা সহায়তা</h4>
-                    <p>মেধাবী শিক্ষার্থীদের বৃত্তি প্রদান</p>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&h=400&fit=crop" alt="Gallery 3" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 400%22><defs><linearGradient id=%22g3%22 x1=%220%25%22 y1=%220%25%22 x2=%22100%25%22 y2=%22100%25%22><stop offset=%220%25%22 style=%22stop-color:%239C27B0%22/><stop offset=%22100%25%22 style=%22stop-color:%23FF5722%22/></linearGradient></defs><rect fill=%22url(%23g3)%22 width=%22400%22 height=%22400%22/><text x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2235%22>শিক্ষা কর্মসূচি</text></svg>'">
+                    <div class="gallery-overlay">
+                        <h4>শিক্ষা সহায়তা</h4>
+                        <p>মেধাবী শিক্ষার্থীদের বৃত্তি প্রদান</p>
+                    </div>
                 </div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1540910419892-4a36d2c3266c?w=400&h=400&fit=crop" alt="Gallery 4" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 400%22><defs><linearGradient id=%22g4%22 x1=%220%25%22 y1=%220%25%22 x2=%22100%25%22 y2=%22100%25%22><stop offset=%220%25%22 style=%22stop-color:%23FF5722%22/><stop offset=%22100%25%22 style=%22stop-color:%234CAF50%22/></linearGradient></defs><rect fill=%22url(%23g4)%22 width=%22400%22 height=%22400%22/><text x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2240%22>জনসভা</text></svg>'">
-                <div class="gallery-overlay">
-                    <h4>জনসভা ও মিটিং</h4>
-                    <p>জনগণের সাথে সরাসরি মতবিনিময়</p>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1540910419892-4a36d2c3266c?w=400&h=400&fit=crop" alt="Gallery 4" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 400%22><defs><linearGradient id=%22g4%22 x1=%220%25%22 y1=%220%25%22 x2=%22100%25%22 y2=%22100%25%22><stop offset=%220%25%22 style=%22stop-color:%23FF5722%22/><stop offset=%22100%25%22 style=%22stop-color:%234CAF50%22/></linearGradient></defs><rect fill=%22url(%23g4)%22 width=%22400%22 height=%22400%22/><text x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2240%22>জনসভা</text></svg>'">
+                    <div class="gallery-overlay">
+                        <h4>জনসভা ও মিটিং</h4>
+                        <p>জনগণের সাথে সরাসরি মতবিনিময়</p>
+                    </div>
                 </div>
-            </div>
+            @endif
         </div>
 
         <div style="text-align: center; margin-top: 2rem;">

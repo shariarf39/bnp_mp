@@ -273,6 +273,10 @@
                     <i class="fas fa-images"></i>
                     <span>স্লাইডার ইমেজ</span>
                 </a>
+                <a href="{{ route('admin.activities.index') }}" class="menu-item {{ request()->routeIs('admin.activities.*') ? 'active' : '' }}">
+                    <i class="fas fa-camera"></i>
+                    <span>কার্যক্রম ছবি</span>
+                </a>
                 <a href="{{ route('admin.content.index') }}" class="menu-item {{ request()->routeIs('admin.content.*') ? 'active' : '' }}">
                     <i class="fas fa-file-alt"></i>
                     <span>কন্টেন্ট ম্যানেজমেন্ট</span>
@@ -283,6 +287,14 @@
                 <a href="{{ route('admin.goals.index') }}" class="menu-item {{ request()->routeIs('admin.goals.*') ? 'active' : '' }}">
                     <i class="fas fa-bullseye"></i>
                     <span>লক্ষ্য সেকশন</span>
+                </a>
+                <a href="{{ route('admin.leader.index') }}" class="menu-item {{ request()->routeIs('admin.leader.*') ? 'active' : '' }}">
+                    <i class="fas fa-user-tie"></i>
+                    <span>নেতা সেকশন</span>
+                </a>
+                <a href="{{ route('admin.about.index') }}" class="menu-item {{ request()->routeIs('admin.about.*') ? 'active' : '' }}">
+                    <i class="fas fa-address-card"></i>
+                    <span>আমার সম্পর্কে</span>
                 </a>
             </div>
             <div class="menu-section">

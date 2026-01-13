@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\HeroSlide;
 use App\Models\SiteContent;
+use App\Models\Activity;
+use App\Models\AboutContent;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -12,17 +14,20 @@ class HomeController extends Controller
     {
         $heroSlides = HeroSlide::active()->ordered()->get();
         $content = SiteContent::all()->pluck('value', 'key')->toArray();
-        return view('home', compact('heroSlides', 'content'));
+        $activities = Activity::active()->ordered()->take(6)->get(); // First 6 for home page
+        return view('home', compact('heroSlides', 'content', 'activities'));
     }
 
     public function about()
     {
-        return view('about');
+        $about = AboutContent::getContent();
+        return view('about', compact('about'));
     }
 
     public function gallery()
     {
-        return view('gallery');
+        $activities = Activity::active()->ordered()->get();
+        return view('gallery', compact('activities'));
     }
 
     public function contact()

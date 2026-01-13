@@ -61,16 +61,15 @@
         }
 
         .logo-icon {
-            width: 42px;
-            height: 42px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 1.2rem;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .logo-icon img {
+            height: 70px;
+            width: auto;
+            object-fit: contain;
         }
 
         .nav-menu {
@@ -216,6 +215,15 @@
             gap: 3rem;
             position: relative;
             z-index: 2;
+        }
+
+        .footer-logo {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            object-fit: cover;
         }
 
         .footer-section h3 {
@@ -400,9 +408,9 @@
         <div class="nav-container">
             <a href="{{ route('home') }}" class="logo">
                 <div class="logo-icon">
-                    <i class="fas fa-leaf"></i>
+                    <img src="{{ asset('images/Dhaner-Shish-_2 (1).webp') }}" alt="Logo">
                 </div>
-                <span>BNP নেতা</span>
+                <span>Mirza Abbas</span>
             </a>
             
             <button class="mobile-toggle" onclick="toggleMenu()">
@@ -431,12 +439,15 @@
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-section">
-                <h3>আমাদের সম্পর্কে</h3>
-                <p>গণতন্ত্রের পথেই মুক্তি, যেখানে আপনার প্রতিটি কথাই মূল্যবান এবং প্রতিটি ভোটই গড়বে আমাদের জাতির ভাগ্য।</p>
+                @if(\App\Models\SiteContent::getValue('about_logo'))
+                <img src="{{ asset('storage/' . \App\Models\SiteContent::getValue('about_logo')) }}" alt="Logo" class="footer-logo">
+                @endif
+                <h3>{{ \App\Models\SiteContent::getValue('footer_about_title', 'আমাদের সম্পর্কে') }}</h3>
+                <p>{{ \App\Models\SiteContent::getValue('footer_about_text', 'গণতন্ত্রের পথেই মুক্তি, যেখানে আপনার প্রতিটি কথাই মূল্যবান এবং প্রতিটি ভোটই গড়বে আমাদের জাতির ভাগ্য।') }}</p>
                 <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="{{ \App\Models\SiteContent::getUrl('footer_facebook_url', '#') }}" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="{{ \App\Models\SiteContent::getUrl('footer_youtube_url', '#') }}" target="_blank"><i class="fab fa-youtube"></i></a>
+                    <a href="{{ \App\Models\SiteContent::getUrl('footer_twitter_url', '#') }}" target="_blank"><i class="fab fa-twitter"></i></a>
                 </div>
             </div>
             
@@ -456,14 +467,14 @@
             
             <div class="footer-section">
                 <h3>যোগাযোগ</h3>
-                <p><i class="fas fa-phone"></i> +৮৮০ ১XXX-XXXXXX</p>
-                <p><i class="fas fa-envelope"></i> info@example.com</p>
-                <p><i class="fas fa-map-marker-alt"></i> ঢাকা, বাংলাদেশ</p>
+                <p><i class="fas fa-phone"></i> {{ \App\Models\SiteContent::getValue('footer_phone', '+৮৮০ ১XXX-XXXXXX') }}</p>
+                <p><i class="fas fa-envelope"></i> {{ \App\Models\SiteContent::getValue('footer_email', 'info@example.com') }}</p>
+                <p><i class="fas fa-map-marker-alt"></i> {{ \App\Models\SiteContent::getValue('footer_address', 'ঢাকা, বাংলাদেশ') }}</p>
             </div>
         </div>
         
         <div class="footer-bottom">
-            <p>&copy; {{ date('Y') }} BNP রাজনৈতিক নেতা। সর্বস্বত্ব সংরক্ষিত।</p>
+            <p>&copy; {{ date('Y') }} {{ \App\Models\SiteContent::getValue('footer_copyright', 'BNP রাজনৈতিক নেতা। সর্বস্বত্ব সংরক্ষিত।') }}</p>
         </div>
     </footer>
 

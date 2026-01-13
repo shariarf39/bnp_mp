@@ -13,7 +13,9 @@ class ContentController extends Controller
         $sections = [
             'hero' => 'হিরো সেকশন',
             'stats' => 'পরিসংখ্যান',
-            'goals' => 'লক্ষ্য'
+            'goals' => 'লক্ষ্য',
+            'footer' => 'ফুটার যোগাযোগ',
+            'about' => 'আমাদের সম্পর্কে'
         ];
         
         $contents = SiteContent::all()->groupBy('section');

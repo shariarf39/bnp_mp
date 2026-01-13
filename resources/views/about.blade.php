@@ -13,6 +13,27 @@
         overflow: hidden;
     }
 
+    .page-logo {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 1.5rem;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        position: relative;
+        z-index: 2;
+    }
+
+    .page-logo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+
     .page-header::before {
         content: '';
         position: absolute;
@@ -318,48 +339,57 @@
 @section('content')
 <!-- Page Header -->
 <section class="page-header">
-    <h1>আমার সম্পর্কে</h1>
-    <p>জনগণের সেবায় নিবেদিত একজন আদর্শিক রাজনৈতিক নেতা</p>
+    @if(\App\Models\SiteContent::getValue('about_logo'))
+    <div class="page-logo">
+        <img src="{{ asset('storage/' . \App\Models\SiteContent::getValue('about_logo')) }}" alt="Logo">
+    </div>
+    @endif
+    <h1>{{ $about->page_title }}</h1>
+    <p>{{ $about->page_subtitle }}</p>
 </section>
 
 <!-- Bio Section -->
 <section class="about-content">
     <div class="bio-section">
         <div class="bio-image">
-            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500'><rect fill='%232d8659' width='400' height='500'/><circle cx='200' cy='150' r='80' fill='white' opacity='0.3'/><rect x='120' y='250' width='160' height='200' rx='10' fill='white' opacity='0.3'/><text x='50%25' y='95%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='30' font-family='Arial'>BNP নেতা</text></svg>" alt="Political Leader">
+            @if($about->bio_image)
+                <img src="{{ asset('storage/' . $about->bio_image) }}" alt="Political Leader">
+            @else
+                <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500'><rect fill='%232d8659' width='400' height='500'/><circle cx='200' cy='150' r='80' fill='white' opacity='0.3'/><rect x='120' y='250' width='160' height='200' rx='10' fill='white' opacity='0.3'/><text x='50%25' y='95%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='30' font-family='Arial'>BNP নেতা</text></svg>" alt="Political Leader">
+            @endif
         </div>
         <div class="bio-details">
-            <h2>রাজনৈতিক নেতা ও সমাজসেবক</h2>
-            <p>বাংলাদেশ জাতীয়তাবাদী দল (BNP) এর একজন নিবেদিতপ্রাণ রাজনীতিবিদ এবং জনসেবক। দীর্ঘ বছরের রাজনৈতিক অভিজ্ঞতা এবং জনগণের প্রতি অকৃত্রিম ভালোবাসা নিয়ে কাজ করে যাচ্ছেন।</p>
-            <p>ছাত্র রাজনীতির মাধ্যমে রাজনৈতিক জীবন শুরু। তরুণদের অধিকার আদায়ে সর্বদা সোচ্চার থেকেছেন এবং শিক্ষা, স্বাস্থ্য ও সামাজিক উন্নয়নে অগ্রণী ভূমিকা পালন করছেন।</p>
+            <h2>{{ $about->bio_title }}</h2>
+            <p>{{ $about->bio_description_1 }}</p>
+            <p>{{ $about->bio_description_2 }}</p>
 
             <div class="info-grid">
                 <div class="info-item">
                     <i class="fas fa-user"></i>
                     <div>
                         <div class="info-label">পূর্ণ নাম:</div>
-                        <div class="info-value">BNP রাজনৈতিক নেতা</div>
+                        <div class="info-value">{{ $about->full_name }}</div>
                     </div>
                 </div>
                 <div class="info-item">
                     <i class="fas fa-flag"></i>
                     <div>
                         <div class="info-label">দল:</div>
-                        <div class="info-value">বাংলাদেশ জাতীয়তাবাদী দল (BNP)</div>
+                        <div class="info-value">{{ $about->party_name }}</div>
                     </div>
                 </div>
                 <div class="info-item">
                     <i class="fas fa-map-marker-alt"></i>
                     <div>
                         <div class="info-label">নির্বাচনী এলাকা:</div>
-                        <div class="info-value">ঢাকা, বাংলাদেশ</div>
+                        <div class="info-value">{{ $about->constituency }}</div>
                     </div>
                 </div>
                 <div class="info-item">
                     <i class="fas fa-briefcase"></i>
                     <div>
                         <div class="info-label">অভিজ্ঞতা:</div>
-                        <div class="info-value">১০+ বছর জনসেবা</div>
+                        <div class="info-value">{{ $about->experience }}</div>
                     </div>
                 </div>
             </div>
@@ -372,35 +402,15 @@
     <div class="journey-content">
         <h2>রাজনৈতিক যাত্রা</h2>
         <div class="timeline">
-            <div class="timeline-item">
-                <div class="timeline-year">২০১০</div>
-                <div class="timeline-title">ছাত্র রাজনীতিতে যুক্ত</div>
-                <div class="timeline-desc">ছাত্র আন্দোলনের মাধ্যমে রাজনৈতিক জীবনের সূচনা। তরুণদের অধিকার আদায়ে নেতৃত্ব প্রদান।</div>
-            </div>
-
-            <div class="timeline-item">
-                <div class="timeline-year">২০১৩</div>
-                <div class="timeline-title">BNP তে যোগদান</div>
-                <div class="timeline-desc">বাংলাদেশ জাতীয়তাবাদী দলে আনুষ্ঠানিকভাবে যুক্ত হন এবং স্থানীয় পর্যায়ে সাংগঠনিক দায়িত্ব পালন শুরু।</div>
-            </div>
-
-            <div class="timeline-item">
-                <div class="timeline-year">২০১৬</div>
-                <div class="timeline-title">সামাজিক উন্নয়ন কর্মসূচি</div>
-                <div class="timeline-desc">শিক্ষা, স্বাস্থ্য ও দারিদ্র্য বিমোচনে বিভিন্ন উদ্যোগ গ্রহণ। স্থানীয় জনগণের সেবায় নিয়োজিত।</div>
-            </div>
-
-            <div class="timeline-item">
-                <div class="timeline-year">২০১৯</div>
-                <div class="timeline-title">জেলা পর্যায়ের নেতৃত্ব</div>
-                <div class="timeline-desc">দলের জেলা কমিটিতে গুরুত্বপূর্ণ দায়িত্ব লাভ। আঞ্চলিক উন্নয়নে বলিষ্ঠ ভূমিকা।</div>
-            </div>
-
-            <div class="timeline-item">
-                <div class="timeline-year">২০২৩ - বর্তমান</div>
-                <div class="timeline-title">জনপ্রতিনিধি প্রার্থী</div>
-                <div class="timeline-desc">আসন্ন নির্বাচনে জনগণের বিশ্বাস অর্জন এবং উন্নয়নের নতুন দিগন্ত খুলে দিতে প্রতিশ্রুতিবদ্ধ।</div>
-            </div>
+            @if($about->timeline_events)
+                @foreach($about->timeline_events as $event)
+                <div class="timeline-item">
+                    <div class="timeline-year">{{ $event['year'] }}</div>
+                    <div class="timeline-title">{{ $event['title'] }}</div>
+                    <div class="timeline-desc">{{ $event['description'] }}</div>
+                </div>
+                @endforeach
+            @endif
         </div>
     </div>
 </section>
@@ -412,9 +422,9 @@
             <i class="fas fa-quote-left"></i>
         </div>
         <div class="quote-text">
-            "গণতন্ত্র, ন্যায়বিচার এবং সমান সুযোগ—এই তিনটি স্তম্ভের উপর দাঁড়িয়ে আমরা গড়ব একটি সুন্দর বাংলাদেশ।"
+            "{{ $about->quote_text }}"
         </div>
-        <div class="quote-author">— রাজনৈতিক নেতা</div>
+        <div class="quote-author">— {{ $about->quote_author }}</div>
     </div>
 </section>
 
@@ -422,35 +432,14 @@
 <section class="vision-section">
     <h2>আমার দৃষ্টিভঙ্গি</h2>
     <div class="vision-grid">
-        <div class="vision-card">
-            <h3>গণতন্ত্র সুরক্ষা</h3>
-            <p>প্রকৃত গণতান্ত্রিক মূল্যবোধ প্রতিষ্ঠা করা এবং জনগণের মতামতকে সর্বোচ্চ গুরুত্ব প্রদান করা।</p>
-        </div>
-
-        <div class="vision-card">
-            <h3>অর্থনৈতিক উন্নয়ন</h3>
-            <p>কর্মসংস্থান সৃষ্টি, শিল্পায়ন এবং ব্যবসা-বাণিজ্যের সুযোগ বৃদ্ধির মাধ্যমে দেশের অর্থনীতি শক্তিশালী করা।</p>
-        </div>
-
-        <div class="vision-card">
-            <h3>সামাজিক ন্যায়বিচার</h3>
-            <p>সমাজের প্রতিটি মানুষের জন্য সমান অধিকার, সুযোগ এবং মর্যাদা নিশ্চিত করা।</p>
-        </div>
-
-        <div class="vision-card">
-            <h3>শিক্ষা ও স্বাস্থ্য</h3>
-            <p>মানসম্মত শিক্ষা ও সুলভ স্বাস্থ্যসেবা প্রদানের মাধ্যমে একটি সুস্থ ও শিক্ষিত সমাজ গঠন।</p>
-        </div>
-
-        <div class="vision-card">
-            <h3>দুর্নীতি মুক্ত সমাজ</h3>
-            <p>স্বচ্ছতা, জবাবদিহিতা এবং সুশাসন প্রতিষ্ঠার মাধ্যমে দুর্নীতিমুক্ত বাংলাদেশ গড়া।</p>
-        </div>
-
-        <div class="vision-card">
-            <h3>যুব উন্নয়ন</h3>
-            <p>তরুণ প্রজন্মকে দক্ষ ও আত্মনির্ভরশীল করে তোলা এবং তাদের নেতৃত্ব বিকাশে সহায়তা করা।</p>
-        </div>
+        @if($about->vision_cards)
+            @foreach($about->vision_cards as $card)
+            <div class="vision-card">
+                <h3>{{ $card['title'] }}</h3>
+                <p>{{ $card['description'] }}</p>
+            </div>
+            @endforeach
+        @endif
     </div>
 </section>
 @endsection

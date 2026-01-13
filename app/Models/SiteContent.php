@@ -21,4 +21,24 @@ class SiteContent extends Model
             ['value' => $value, 'section' => $section]
         );
     }
+
+    /**
+     * Get URL value with proper protocol
+     */
+    public static function getUrl($key, $default = '#')
+    {
+        $url = self::getValue($key, $default);
+        
+        // Return default if empty or just #
+        if (empty($url) || $url === '#') {
+            return $default;
+        }
+        
+        // Add https:// if no protocol specified
+        if (!preg_match('/^https?:\/\//i', $url)) {
+            $url = 'https://' . $url;
+        }
+        
+        return $url;
+    }
 }
