@@ -299,6 +299,14 @@
             </div>
             <div class="menu-section">
                 <div class="menu-label">সাধারণ</div>
+                <a href="{{ route('admin.messages.index') }}" class="menu-item {{ request()->routeIs('admin.messages.*') ? 'active' : '' }}">
+                    <i class="fas fa-envelope"></i>
+                    <span>বার্তা সমূহ</span>
+                    @php $unreadCount = \App\Models\ContactMessage::unread()->count(); @endphp
+                    @if($unreadCount > 0)
+                        <span style="background: #ef4444; color: white; padding: 0.15rem 0.5rem; border-radius: 10px; font-size: 0.75rem; margin-left: auto;">{{ $unreadCount }}</span>
+                    @endif
+                </a>
                 <a href="{{ route('home') }}" class="menu-item">
                     <i class="fas fa-home"></i>
                     <span>হোম পেজ</span>

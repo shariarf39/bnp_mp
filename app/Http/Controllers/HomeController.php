@@ -6,6 +6,7 @@ use App\Models\HeroSlide;
 use App\Models\SiteContent;
 use App\Models\Activity;
 use App\Models\AboutContent;
+use App\Models\ContactMessage;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -39,13 +40,14 @@ class HomeController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|max:255',
-            'email' => 'required|email',
+            'email' => 'nullable|email',
             'phone' => 'nullable|max:20',
+            'subject' => 'nullable|max:255',
             'message' => 'required',
         ]);
 
-        // Here you can save to database or send email
-        // For now, just redirect back with success message
+        // Save to database
+        ContactMessage::create($validated);
 
         return redirect()->back()->with('success', 'আপনার বার্তা সফলভাবে পাঠানো হয়েছে!');
     }

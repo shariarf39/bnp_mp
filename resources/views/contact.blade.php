@@ -4,157 +4,330 @@
 
 @section('styles')
 <style>
-    .page-header {
-        background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+    /* Main Hero with Spider Web Animation */
+    .contact-hero {
+        background: linear-gradient(135deg, #0c1929 0%, #1a1a2e 50%, #16213e 100%);
         color: white;
-        padding: 4rem 2rem 3rem;
+        padding: 4rem 2rem;
+        position: relative;
+        overflow: hidden;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+    }
+
+    /* Spider Web Canvas Background */
+    .spider-web-canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+    }
+
+    /* Animated Gradient Orbs */
+    .gradient-orbs {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 0;
+    }
+
+    .orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        opacity: 0.4;
+        animation: orbFloat 20s ease-in-out infinite;
+    }
+
+    .orb-1 {
+        width: 400px;
+        height: 400px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        top: -100px;
+        left: -100px;
+        animation-delay: 0s;
+    }
+
+    .orb-2 {
+        width: 300px;
+        height: 300px;
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        top: 50%;
+        right: -50px;
+        animation-delay: -5s;
+    }
+
+    .orb-3 {
+        width: 350px;
+        height: 350px;
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        bottom: -100px;
+        left: 30%;
+        animation-delay: -10s;
+    }
+
+    .orb-4 {
+        width: 250px;
+        height: 250px;
+        background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        top: 20%;
+        right: 30%;
+        animation-delay: -15s;
+    }
+
+    @keyframes orbFloat {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        25% { transform: translate(50px, -30px) scale(1.1); }
+        50% { transform: translate(-30px, 50px) scale(0.9); }
+        75% { transform: translate(-50px, -20px) scale(1.05); }
+    }
+
+    /* Glowing Lines Animation */
+    .glow-lines {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        overflow: hidden;
+    }
+
+    .glow-line {
+        position: absolute;
+        width: 2px;
+        height: 100%;
+        background: linear-gradient(to bottom, transparent, rgba(102, 126, 234, 0.5), transparent);
+        animation: lineMove 8s linear infinite;
+    }
+
+    .glow-line:nth-child(1) { left: 10%; animation-delay: 0s; }
+    .glow-line:nth-child(2) { left: 25%; animation-delay: -2s; }
+    .glow-line:nth-child(3) { left: 40%; animation-delay: -4s; }
+    .glow-line:nth-child(4) { left: 55%; animation-delay: -6s; }
+    .glow-line:nth-child(5) { left: 70%; animation-delay: -1s; }
+    .glow-line:nth-child(6) { left: 85%; animation-delay: -3s; }
+
+    @keyframes lineMove {
+        0% { transform: translateY(-100%); opacity: 0; }
+        50% { opacity: 1; }
+        100% { transform: translateY(100%); opacity: 0; }
+    }
+
+    /* Hero Content Layout - Form beside Leader */
+    .hero-main-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1.3fr;
+        gap: 3rem;
+        align-items: center;
+        position: relative;
+        z-index: 10;
+        width: 100%;
+    }
+
+    /* Leader Section */
+    .leader-section {
         text-align: center;
+        animation: fadeInLeft 1s ease-out;
+    }
+
+    @keyframes fadeInLeft {
+        from { opacity: 0; transform: translateX(-50px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+
+    .leader-image-container {
+        position: relative;
+        width: 320px;
+        height: 380px;
+        margin: 0 auto 2rem;
+    }
+
+    /* Animated Border Ring */
+    .image-ring {
+        position: absolute;
+        top: -15px;
+        left: -15px;
+        right: -15px;
+        bottom: -15px;
+        border: 3px solid transparent;
+        border-radius: 30px;
+        background: linear-gradient(135deg, #667eea, #764ba2, #f093fb, #667eea) border-box;
+        -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+        mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        animation: ringRotate 4s linear infinite;
+    }
+
+    @keyframes ringRotate {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .leader-image-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 25px;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+    }
+
+    .leader-placeholder {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+    }
+
+    .leader-placeholder i {
+        font-size: 6rem;
+        color: rgba(255, 255, 255, 0.3);
+    }
+
+    .leader-info {
+        text-align: center;
+    }
+
+    .leader-info h2 {
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+        background: linear-gradient(135deg, #fff 0%, #e0e7ff 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .leader-info p {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 1rem;
+    }
+
+    .leader-badge {
+        display: inline-block;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 0.5rem 1.5rem;
+        border-radius: 30px;
+        font-size: 0.85rem;
+        margin-top: 1rem;
+    }
+
+    /* Contact Details under Leader */
+    .quick-contact-info {
+        margin-top: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .quick-info-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 1rem 1.5rem;
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s;
+    }
+
+    .quick-info-item:hover {
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateX(10px);
+    }
+
+    .quick-info-item i {
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+    }
+
+    .quick-info-item span {
+        font-size: 0.95rem;
+        color: rgba(255, 255, 255, 0.9);
+    }
+
+    .quick-info-item a {
+        color: rgba(255, 255, 255, 0.9);
+        text-decoration: none;
+    }
+
+    /* Form Section */
+    .form-section {
+        animation: fadeInRight 1s ease-out 0.3s both;
+    }
+
+    @keyframes fadeInRight {
+        from { opacity: 0; transform: translateX(50px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+
+    .form-container {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 30px;
+        padding: 3rem;
         position: relative;
         overflow: hidden;
     }
 
-    .page-header::before {
+    .form-container::before {
         content: '';
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
-        bottom: 0;
-        background: 
-            radial-gradient(circle at 25% 50%, rgba(76, 175, 80, 0.2) 0%, transparent 50%),
-            radial-gradient(circle at 75% 75%, rgba(33, 150, 243, 0.2) 0%, transparent 50%);
+        height: 4px;
+        background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #667eea);
+        background-size: 300% 100%;
+        animation: gradientMove 3s linear infinite;
     }
 
-    .page-header h1 {
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
-        position: relative;
-        z-index: 2;
+    @keyframes gradientMove {
+        0% { background-position: 0% 0%; }
+        100% { background-position: 300% 0%; }
     }
 
-    .page-header p {
-        font-size: 1.1rem;
-        max-width: 700px;
-        margin: 0 auto;
-        position: relative;
-        z-index: 2;
-        color: rgba(255, 255, 255, 0.9);
+    .form-header {
+        text-align: center;
+        margin-bottom: 2rem;
     }
 
-    .contact-content {
-        max-width: 1200px;
-        margin: 4rem auto;
-        padding: 0 2rem;
+    .form-header h2 {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+        background: linear-gradient(135deg, #fff 0%, #e0e7ff 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .form-header p {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 1rem;
+    }
+
+    .form-row {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 4rem;
-    }
-
-    .contact-info {
-        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-        padding: 2.5rem;
-        border-radius: 25px;
-        border: 1px solid rgba(76, 175, 80, 0.1);
-    }
-
-    .contact-info h2 {
-        background: linear-gradient(135deg, #0f2027, #2c5364);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        font-size: 1.8rem;
-        margin-bottom: 2rem;
-    }
-
-    .info-item {
-        display: flex;
         gap: 1.5rem;
-        margin-bottom: 2rem;
-        align-items: flex-start;
-    }
-
-    .info-icon {
-        width: 55px;
-        height: 55px;
-        background: linear-gradient(135deg, #4CAF50, #2196F3);
-        border-radius: 15px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 1.4rem;
-        flex-shrink: 0;
-        box-shadow: 0 6px 20px rgba(76, 175, 80, 0.3);
-    }
-
-    .info-details h3 {
-        color: #333;
-        margin-bottom: 0.5rem;
-    }
-
-    .info-details p {
-        color: #666;
-        line-height: 1.6;
-    }
-
-    .info-details a {
-        color: #2d8659;
-        text-decoration: none;
-    }
-
-    .info-details a:hover {
-        text-decoration: underline;
-    }
-
-    .social-section {
-        margin-top: 3rem;
-        padding-top: 2rem;
-        border-top: 2px solid #ddd;
-    }
-
-    .social-section h3 {
-        color: #333;
-        margin-bottom: 1rem;
-    }
-
-    .social-links {
-        display: flex;
-        gap: 1rem;
-    }
-
-    .social-links a {
-        width: 50px;
-        height: 50px;
-        background: linear-gradient(135deg, #1a5f3a, #2d8659);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 1.3rem;
-        transition: all 0.3s;
-    }
-
-    .social-links a:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 5px 20px rgba(45, 134, 89, 0.4);
-    }
-
-    .contact-form {
-        background: white;
-        padding: 2.5rem;
-        border-radius: 25px;
-        box-shadow: 0 15px 50px rgba(0,0,0,0.1);
-        border: 1px solid rgba(76, 175, 80, 0.1);
-    }
-
-    .contact-form h2 {
-        background: linear-gradient(135deg, #0f2027, #2c5364);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        font-size: 1.8rem;
-        margin-bottom: 2rem;
     }
 
     .form-group {
@@ -163,309 +336,480 @@
 
     .form-group label {
         display: block;
-        color: #333;
-        font-weight: 600;
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: 500;
         margin-bottom: 0.5rem;
+        font-size: 0.95rem;
     }
 
     .form-group input,
-    .form-group textarea {
+    .form-group textarea,
+    .form-group select {
         width: 100%;
-        padding: 1rem;
-        border: 2px solid #e0e0e0;
-        border-radius: 10px;
+        padding: 1rem 1.2rem;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
         font-family: 'Noto Sans Bengali', sans-serif;
         font-size: 1rem;
         transition: all 0.3s;
+        background: rgba(255, 255, 255, 0.05);
+        color: white;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+        color: rgba(255, 255, 255, 0.4);
     }
 
     .form-group input:focus,
-    .form-group textarea:focus {
+    .form-group textarea:focus,
+    .form-group select:focus {
         outline: none;
-        border-color: #4CAF50;
-        box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+        border-color: #667eea;
+        background: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+    }
+
+    .form-group select option {
+        background: #1a1a2e;
+        color: white;
     }
 
     .form-group textarea {
         resize: vertical;
-        min-height: 150px;
+        min-height: 120px;
     }
 
     .submit-btn {
         width: 100%;
-        padding: 1.1rem;
-        background: linear-gradient(135deg, #4CAF50, #2196F3);
+        padding: 1.2rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: white;
         border: none;
-        border-radius: 30px;
-        font-size: 1.05rem;
+        border-radius: 15px;
+        font-size: 1.1rem;
         font-weight: 600;
         cursor: pointer;
         transition: all 0.3s;
         font-family: 'Noto Sans Bengali', sans-serif;
-        box-shadow: 0 6px 20px rgba(76, 175, 80, 0.3);
-    }
-
-    .submit-btn:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 30px rgba(76, 175, 80, 0.4);
-    }
-
-    .alert {
-        padding: 1rem;
-        border-radius: 10px;
-        margin-bottom: 1.5rem;
-    }
-
-    .alert-success {
-        background: #d4edda;
-        border: 1px solid #c3e6cb;
-        color: #155724;
-    }
-
-    .alert-error {
-        background: #f8d7da;
-        border: 1px solid #f5c6cb;
-        color: #721c24;
-    }
-
-    .volunteer-section {
-        background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
-        color: white;
-        padding: 3.5rem 2rem;
-        margin: 3rem 0;
-        text-align: center;
-        border-radius: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
         position: relative;
         overflow: hidden;
     }
 
-    .volunteer-section::before {
+    .submit-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s;
+    }
+
+    .submit-btn:hover::before {
+        left: 100%;
+    }
+
+    .submit-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
+    }
+
+    .alert {
+        padding: 1rem 1.5rem;
+        border-radius: 15px;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        backdrop-filter: blur(10px);
+    }
+
+    .alert-success {
+        background: rgba(34, 197, 94, 0.2);
+        border: 1px solid rgba(34, 197, 94, 0.3);
+        color: #86efac;
+    }
+
+    .alert-error {
+        background: rgba(239, 68, 68, 0.2);
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        color: #fca5a5;
+    }
+
+    /* Social Links */
+    .social-links-hero {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        margin-top: 2rem;
+    }
+
+    .social-links-hero a {
+        width: 50px;
+        height: 50px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
+        transition: all 0.3s;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .social-links-hero a:hover {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        transform: translateY(-5px) scale(1.1);
+        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    }
+
+    /* Floating Icons Animation */
+    .floating-icons {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+        pointer-events: none;
+        overflow: hidden;
+    }
+
+    .float-icon {
+        position: absolute;
+        font-size: 1.5rem;
+        color: rgba(255, 255, 255, 0.1);
+        animation: floatIcon 20s linear infinite;
+    }
+
+    .float-icon:nth-child(1) { left: 5%; animation-delay: 0s; }
+    .float-icon:nth-child(2) { left: 15%; animation-delay: -3s; }
+    .float-icon:nth-child(3) { left: 25%; animation-delay: -6s; }
+    .float-icon:nth-child(4) { left: 75%; animation-delay: -9s; }
+    .float-icon:nth-child(5) { left: 85%; animation-delay: -12s; }
+    .float-icon:nth-child(6) { left: 95%; animation-delay: -15s; }
+
+    @keyframes floatIcon {
+        0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+        10% { opacity: 0.3; }
+        90% { opacity: 0.3; }
+        100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+    }
+
+    /* CTA Section */
+    .cta-section {
+        padding: 5rem 2rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .cta-section::before {
         content: '';
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-        background: 
-            radial-gradient(circle at 20% 50%, rgba(76, 175, 80, 0.15) 0%, transparent 50%),
-            radial-gradient(circle at 80% 50%, rgba(33, 150, 243, 0.15) 0%, transparent 50%);
+        background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     }
 
-    .volunteer-section h2 {
-        font-size: 2.2rem;
-        margin-bottom: 1rem;
+    .cta-content {
+        max-width: 800px;
+        margin: 0 auto;
         position: relative;
-        z-index: 2;
+        z-index: 1;
+        color: white;
     }
 
-    .volunteer-section p {
-        font-size: 1.1rem;
+    .cta-content h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .cta-content p {
+        font-size: 1.2rem;
+        opacity: 0.9;
         margin-bottom: 2rem;
-        max-width: 700px;
-        margin-left: auto;
-        margin-right: auto;
-        position: relative;
-        z-index: 2;
-        color: rgba(255, 255, 255, 0.9);
     }
 
-    .volunteer-features {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 2rem;
-        max-width: 1000px;
-        margin: 3rem auto 0;
+    .cta-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
     }
 
-    .volunteer-feature {
-        background: rgba(255,255,255,0.1);
-        padding: 2rem;
-        border-radius: 15px;
-        backdrop-filter: blur(10px);
+    .cta-btn {
+        padding: 1rem 2.5rem;
+        border-radius: 30px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
     }
 
-    .volunteer-feature i {
-        font-size: 3rem;
-        margin-bottom: 1rem;
+    .cta-btn-primary {
+        background: white;
+        color: #667eea;
     }
 
-    .volunteer-feature h3 {
-        font-size: 1.3rem;
-        margin-bottom: 0.5rem;
+    .cta-btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     }
 
-    @media (max-width: 768px) {
-        .page-header h1 {
-            font-size: 2rem;
-        }
+    .cta-btn-secondary {
+        background: transparent;
+        color: white;
+        border: 2px solid white;
+    }
 
-        .contact-content {
+    .cta-btn-secondary:hover {
+        background: white;
+        color: #667eea;
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+        .hero-main-content {
             grid-template-columns: 1fr;
-            gap: 2rem;
+            gap: 3rem;
         }
 
-        .contact-info,
-        .contact-form {
-            padding: 2rem;
+        .leader-section {
+            order: 1;
         }
 
-        .volunteer-section h2 {
-            font-size: 2rem;
+        .form-section {
+            order: 2;
+        }
+
+        .leader-image-container {
+            width: 280px;
+            height: 340px;
+        }
+
+        .quick-contact-info {
+            display: none;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .contact-hero {
+            padding: 2rem 1rem;
+            min-height: auto;
+        }
+
+        .leader-image-container {
+            width: 220px;
+            height: 280px;
+        }
+
+        .form-container {
+            padding: 2rem 1.5rem;
+        }
+
+        .form-row {
+            grid-template-columns: 1fr;
+        }
+
+        .form-header h2 {
+            font-size: 1.5rem;
+        }
+
+        .leader-info h2 {
+            font-size: 1.4rem;
+        }
+
+        .cta-content h2 {
+            font-size: 1.8rem;
         }
     }
 </style>
 @endsection
 
 @section('content')
-<!-- Page Header -->
-<section class="page-header">
-    <h1>যোগাযোগ</h1>
-    <p>আপনার মতামত, পরামর্শ বা যেকোনো সহায়তার জন্য আমাদের সাথে যোগাযোগ করুন</p>
-</section>
+@php
+    $leaderImage = \App\Models\SiteContent::getValue('leader_image');
+    $leaderName = \App\Models\SiteContent::getValue('leader_name', 'নেতার নাম');
+    $leaderTitle = \App\Models\SiteContent::getValue('leader_title', 'রাজনৈতিক নেতা');
+    $footerPhone = \App\Models\SiteContent::getValue('footer_phone', '+৮৮০ ১XXX-XXXXXX');
+    $footerEmail = \App\Models\SiteContent::getValue('footer_email', 'info@example.com');
+    $footerAddress = \App\Models\SiteContent::getValue('footer_address', 'ঢাকা, বাংলাদেশ');
+    $facebookUrl = \App\Models\SiteContent::getUrl('footer_facebook_url', '#');
+    $youtubeUrl = \App\Models\SiteContent::getUrl('footer_youtube_url', '#');
+    $twitterUrl = \App\Models\SiteContent::getUrl('footer_twitter_url', '#');
+@endphp
 
-<!-- Contact Content -->
-<section class="contact-content">
-    <!-- Contact Info -->
-    <div class="contact-info">
-        <h2>যোগাযোগের তথ্য</h2>
-        
-        <div class="info-item">
-            <div class="info-icon">
-                <i class="fas fa-map-marker-alt"></i>
+<!-- Main Hero Section with Spider Web Animation -->
+<section class="contact-hero">
+    <!-- Animated Gradient Orbs -->
+    <div class="gradient-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+    </div>
+
+    <!-- Glowing Lines -->
+    <div class="glow-lines">
+        <div class="glow-line"></div>
+        <div class="glow-line"></div>
+        <div class="glow-line"></div>
+        <div class="glow-line"></div>
+        <div class="glow-line"></div>
+        <div class="glow-line"></div>
+    </div>
+
+    <!-- Floating Icons -->
+    <div class="floating-icons">
+        <i class="fas fa-envelope float-icon"></i>
+        <i class="fas fa-phone float-icon"></i>
+        <i class="fas fa-comment float-icon"></i>
+        <i class="fas fa-heart float-icon"></i>
+        <i class="fas fa-star float-icon"></i>
+        <i class="fas fa-users float-icon"></i>
+    </div>
+
+    <!-- Spider Web Canvas -->
+    <canvas class="spider-web-canvas" id="spiderWebCanvas"></canvas>
+
+    <!-- Main Content: Leader + Form side by side -->
+    <div class="hero-main-content">
+        <!-- Leader Section (Left) -->
+        <div class="leader-section">
+            <div class="leader-image-container">
+                <div class="image-ring"></div>
+                @if($leaderImage)
+                    <img src="{{ asset('storage/' . $leaderImage) }}" alt="{{ $leaderName }}">
+                @else
+                    <div class="leader-placeholder">
+                        <i class="fas fa-user"></i>
+                    </div>
+                @endif
             </div>
-            <div class="info-details">
-                <h3>অফিসের ঠিকানা</h3>
-                <p>ঢাকা-৭, বাংলাদেশ<br>নির্বাচনী এলাকা অফিস</p>
+
+            <div class="leader-info">
+                <h2>{{ $leaderName }}</h2>
+                <p>{{ $leaderTitle }}</p>
+                <span class="leader-badge"><i class="fas fa-check-circle"></i> সদা আপনার সেবায়</span>
+            </div>
+
+            <!-- Quick Contact Info -->
+            <div class="quick-contact-info">
+                <div class="quick-info-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <a href="tel:{{ $footerPhone }}"><span>{{ $footerPhone }}</span></a>
+                </div>
+                <div class="quick-info-item">
+                    <i class="fas fa-envelope"></i>
+                    <a href="mailto:{{ $footerEmail }}"><span>{{ $footerEmail }}</span></a>
+                </div>
+                <div class="quick-info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>{{ $footerAddress }}</span>
+                </div>
+            </div>
+
+            <!-- Social Links -->
+            <div class="social-links-hero">
+                <a href="{{ $facebookUrl }}" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="{{ $youtubeUrl }}" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+                <a href="{{ $twitterUrl }}" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
             </div>
         </div>
 
-        <div class="info-item">
-            <div class="info-icon">
-                <i class="fas fa-phone"></i>
-            </div>
-            <div class="info-details">
-                <h3>ফোন নম্বর</h3>
-                <p><a href="tel:+8801XXXXXXXXX">+৮৮০ ১XXX-XXXXXX</a><br>
-                কল করুন: সকাল ৯টা - সন্ধ্যা ৬টা</p>
-            </div>
-        </div>
+        <!-- Form Section (Right) -->
+        <div class="form-section">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2><i class="fas fa-paper-plane"></i> বার্তা পাঠান</h2>
+                    <p>আপনার মতামত বা পরামর্শ জানান</p>
+                </div>
 
-        <div class="info-item">
-            <div class="info-icon">
-                <i class="fas fa-envelope"></i>
-            </div>
-            <div class="info-details">
-                <h3>ইমেইল</h3>
-                <p><a href="mailto:info@example.com">info@example.com</a><br>
-                ২৪ ঘণ্টার মধ্যে উত্তর পাবেন</p>
-            </div>
-        </div>
+                @if(session('success'))
+                    <div class="alert alert-success">
+                        <i class="fas fa-check-circle"></i>
+                        {{ session('success') }}
+                    </div>
+                @endif
 
-        <div class="info-item">
-            <div class="info-icon">
-                <i class="fas fa-clock"></i>
-            </div>
-            <div class="info-details">
-                <h3>অফিস সময়</h3>
-                <p>রবিবার - বৃহস্পতিবার<br>
-                সকাল ৯:০০ - সন্ধ্যা ৬:০০</p>
-            </div>
-        </div>
+                @if($errors->any())
+                    <div class="alert alert-error">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <div>
+                            @foreach($errors->all() as $error)
+                                <div>{{ $error }}</div>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
 
-        <div class="social-section">
-            <h3>সামাজিক মাধ্যমে আমরা</h3>
-            <div class="social-links">
-                <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
-                <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
-                <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <form action="{{ route('contact.submit') }}" method="POST">
+                    @csrf
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name"><i class="fas fa-user"></i> আপনার নাম *</label>
+                            <input type="text" id="name" name="name" value="{{ old('name') }}" required placeholder="পূর্ণ নাম লিখুন">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone"><i class="fas fa-phone"></i> ফোন নম্বর</label>
+                            <input type="tel" id="phone" name="phone" value="{{ old('phone') }}" placeholder="০১XXXXXXXXX">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject"><i class="fas fa-tag"></i> বিষয়</label>
+                        <select id="subject" name="subject">
+                            <option value="">বিষয় নির্বাচন করুন</option>
+                            <option value="general">সাধারণ অনুসন্ধান</option>
+                            <option value="support">সহায়তা অনুরোধ</option>
+                            <option value="feedback">মতামত ও পরামর্শ</option>
+                            <option value="volunteer">স্বেচ্ছাসেবক হতে চাই</option>
+                            <option value="other">অন্যান্য</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message"><i class="fas fa-comment-dots"></i> আপনার বার্তা *</label>
+                        <textarea id="message" name="message" required placeholder="আপনার মতামত, পরামর্শ বা যেকোনো বার্তা লিখুন...">{{ old('message') }}</textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i>
+                        <span>বার্তা পাঠান</span>
+                    </button>
+                </form>
             </div>
         </div>
     </div>
-
-    <!-- Contact Form -->
-    <div class="contact-form">
-        <h2>বার্তা পাঠান</h2>
-
-        @if(session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
-
-        @if($errors->any())
-            <div class="alert alert-error">
-                <ul style="margin: 0; padding-left: 1.5rem;">
-                    @foreach($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
-        <form action="{{ route('contact.submit') }}" method="POST">
-            @csrf
-            
-            <div class="form-group">
-                <label for="name">আপনার নাম <span style="color: red;">*</span></label>
-                <input type="text" id="name" name="name" value="{{ old('name') }}" required placeholder="পূর্ণ নাম লিখুন">
-            </div>
-
-            <div class="form-group">
-                <label for="email">ইমেইল <span style="color: red;">*</span></label>
-                <input type="email" id="email" name="email" value="{{ old('email') }}" required placeholder="example@email.com">
-            </div>
-
-            <div class="form-group">
-                <label for="phone">ফোন নম্বর</label>
-                <input type="tel" id="phone" name="phone" value="{{ old('phone') }}" placeholder="০১XXXXXXXXX">
-            </div>
-
-            <div class="form-group">
-                <label for="message">আপনার বার্তা <span style="color: red;">*</span></label>
-                <textarea id="message" name="message" required placeholder="আপনার মতামত, পরামর্শ বা যেকোনো বার্তা লিখুন...">{{ old('message') }}</textarea>
-            </div>
-
-            <button type="submit" class="submit-btn">বার্তা পাঠান</button>
-        </form>
-    </div>
 </section>
 
-<!-- Volunteer Section -->
-<section class="volunteer-section">
-    <div class="container">
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="cta-content">
         <h2>স্বেচ্ছাসেবক হিসেবে যোগ দিন</h2>
         <p>আমাদের উন্নয়ন যাত্রায় অংশীদার হোন। একসাথে আমরা পরিবর্তন আনতে পারি।</p>
-
-        <div class="volunteer-features">
-            <div class="volunteer-feature">
-                <i class="fas fa-users"></i>
-                <h3>কমিউনিটি সেবা</h3>
-                <p>স্থানীয় সমাজসেবামূলক কাজে অংশগ্রহণ</p>
-            </div>
-
-            <div class="volunteer-feature">
-                <i class="fas fa-bullhorn"></i>
-                <h3>প্রচারণা</h3>
-                <p>নির্বাচনী প্রচারে সহায়তা</p>
-            </div>
-
-            <div class="volunteer-feature">
-                <i class="fas fa-hands-helping"></i>
-                <h3>সহায়তা কার্যক্রম</h3>
-                <p>সামাজিক কল্যাণ কর্মসূচিতে সহযোগিতা</p>
-            </div>
-
-            <div class="volunteer-feature">
-                <i class="fas fa-laptop"></i>
-                <h3>ডিজিটাল টিম</h3>
-                <p>সোশ্যাল মিডিয়া ও অনলাইন কার্যক্রম</p>
-            </div>
-        </div>
-
-        <div style="margin-top: 3rem;">
-            <a href="{{ route('contact') }}" class="btn btn-primary" style="background: white; color: #1a5f3a;">স্বেচ্ছাসেবক হতে চাই</a>
+        <div class="cta-buttons">
+            <a href="#" class="cta-btn cta-btn-primary">
+                <i class="fas fa-hands-helping"></i> স্বেচ্ছাসেবক হতে চাই
+            </a>
+            <a href="{{ $facebookUrl }}" target="_blank" class="cta-btn cta-btn-secondary">
+                <i class="fab fa-facebook-f"></i> ফেসবুকে যোগ দিন
+            </a>
         </div>
     </div>
 </section>
@@ -473,21 +817,144 @@
 
 @section('scripts')
 <script>
-    // Auto-hide success message after 5 seconds
+    // Spider Web Animation with Moving Lines (মাকড়সার জাল)
+    const canvas = document.getElementById('spiderWebCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let width, height;
+    let particles = [];
+    let mouse = { x: null, y: null, radius: 150 };
+
+    function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = canvas.parentElement.offsetHeight;
+    }
+
+    class Particle {
+        constructor() {
+            this.x = Math.random() * width;
+            this.y = Math.random() * height;
+            this.vx = (Math.random() - 0.5) * 0.8;
+            this.vy = (Math.random() - 0.5) * 0.8;
+            this.radius = Math.random() * 2 + 1;
+        }
+
+        update() {
+            // Bounce off edges
+            if (this.x < 0 || this.x > width) this.vx = -this.vx;
+            if (this.y < 0 || this.y > height) this.vy = -this.vy;
+
+            // Mouse interaction
+            if (mouse.x !== null) {
+                const dx = mouse.x - this.x;
+                const dy = mouse.y - this.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < mouse.radius) {
+                    const force = (mouse.radius - dist) / mouse.radius;
+                    this.vx -= dx * force * 0.02;
+                    this.vy -= dy * force * 0.02;
+                }
+            }
+
+            this.x += this.vx;
+            this.y += this.vy;
+        }
+
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(102, 126, 234, 0.6)';
+            ctx.fill();
+        }
+    }
+
+    function init() {
+        resize();
+        particles = [];
+        const particleCount = Math.min(100, Math.floor((width * height) / 15000));
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+    }
+
+    function connectParticles() {
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                const maxDist = 150;
+
+                if (dist < maxDist) {
+                    const opacity = 1 - (dist / maxDist);
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    
+                    // Gradient line color
+                    const gradient = ctx.createLinearGradient(
+                        particles[i].x, particles[i].y,
+                        particles[j].x, particles[j].y
+                    );
+                    gradient.addColorStop(0, `rgba(102, 126, 234, ${opacity * 0.5})`);
+                    gradient.addColorStop(1, `rgba(118, 75, 162, ${opacity * 0.5})`);
+                    
+                    ctx.strokeStyle = gradient;
+                    ctx.lineWidth = opacity * 1.5;
+                    ctx.stroke();
+                }
+            }
+        }
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, width, height);
+
+        particles.forEach(p => {
+            p.update();
+            p.draw();
+        });
+
+        connectParticles();
+        requestAnimationFrame(animate);
+    }
+
+    // Mouse movement
+    canvas.addEventListener('mousemove', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = e.clientX - rect.left;
+        mouse.y = e.clientY - rect.top;
+    });
+
+    canvas.addEventListener('mouseleave', () => {
+        mouse.x = null;
+        mouse.y = null;
+    });
+
+    window.addEventListener('resize', () => {
+        resize();
+        init();
+    });
+
+    init();
+    animate();
+
+    // Auto-hide success message
     setTimeout(function() {
         const alert = document.querySelector('.alert-success');
         if (alert) {
-            alert.style.transition = 'opacity 0.5s';
+            alert.style.transition = 'all 0.5s';
             alert.style.opacity = '0';
+            alert.style.transform = 'translateY(-10px)';
             setTimeout(() => alert.remove(), 500);
         }
     }, 5000);
 
-    // Form validation enhancement
+    // Form submit animation
     const form = document.querySelector('form');
     form.addEventListener('submit', function(e) {
         const submitBtn = form.querySelector('.submit-btn');
-        submitBtn.textContent = 'পাঠানো হচ্ছে...';
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>পাঠানো হচ্ছে...</span>';
         submitBtn.disabled = true;
     });
 </script>

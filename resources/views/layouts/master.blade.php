@@ -423,7 +423,7 @@
                     <li><a href="{{ route('about') }}" class="{{ request()->routeIs('about') ? 'active' : '' }}">আমার সম্পর্কে</a></li>
                     <li><a href="{{ route('gallery') }}" class="{{ request()->routeIs('gallery') ? 'active' : '' }}">গ্যালারি</a></li>
                     <li><a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'active' : '' }}">যোগাযোগ</a></li>
-                    <li><a href="{{ route('admin.hero-slides.index') }}" class="admin-btn"><i class="fas fa-shield-alt"></i> অ্যাডমিন</a></li>
+                    
                     <li><a href="{{ route('contact') }}" class="cta-btn">আজই যোগ দিন</a></li>
                 </ul>
             </nav>
