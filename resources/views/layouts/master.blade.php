@@ -77,6 +77,7 @@
             display: flex;
             gap: 2rem;
             list-style: none;
+            align-items: center;
         }
 
         .nav-menu a {
@@ -129,6 +130,27 @@
         }
 
         .nav-menu .cta-btn::after {
+            display: none;
+        }
+        
+        .admin-btn {
+            background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%) !important;
+            color: white !important;
+            padding: 0.65rem 1.4rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+            font-size: 0.9rem;
+        }
+
+        .admin-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(245, 158, 11, 0.5);
+        }
+
+        .nav-menu .admin-btn::after {
             display: none;
         }
 
@@ -393,6 +415,7 @@
                     <li><a href="{{ route('about') }}" class="{{ request()->routeIs('about') ? 'active' : '' }}">আমার সম্পর্কে</a></li>
                     <li><a href="{{ route('gallery') }}" class="{{ request()->routeIs('gallery') ? 'active' : '' }}">গ্যালারি</a></li>
                     <li><a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'active' : '' }}">যোগাযোগ</a></li>
+                    <li><a href="{{ route('admin.hero-slides.index') }}" class="admin-btn"><i class="fas fa-shield-alt"></i> অ্যাডমিন</a></li>
                     <li><a href="{{ route('contact') }}" class="cta-btn">আজই যোগ দিন</a></li>
                 </ul>
             </nav>

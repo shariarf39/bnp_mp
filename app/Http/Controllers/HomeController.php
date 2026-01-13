@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HeroSlide;
+use App\Models\SiteContent;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        return view('home');
+        $heroSlides = HeroSlide::active()->ordered()->get();
+        $content = SiteContent::all()->pluck('value', 'key')->toArray();
+        return view('home', compact('heroSlides', 'content'));
     }
 
     public function about()

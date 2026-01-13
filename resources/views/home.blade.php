@@ -141,11 +141,97 @@
         box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
     }
 
-    .hero-image-main img {
+    .hero-slider {
+        position: relative;
         width: 100%;
         height: 400px;
-        object-fit: cover;
+        overflow: hidden;
+    }
+
+    .hero-slider-track {
+        display: flex;
+        transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        height: 100%;
+    }
+
+    .hero-slide {
+        min-width: 100%;
+        height: 100%;
+        position: relative;
+    }
+
+    .hero-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
         display: block;
+        background: transparent;
+    }
+
+    .slider-dots {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 0.5rem;
+        z-index: 10;
+    }
+
+    .slider-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.4);
+        cursor: pointer;
+        transition: all 0.3s;
+        border: 2px solid rgba(255, 255, 255, 0.8);
+    }
+
+    .slider-dot.active {
+        width: 30px;
+        border-radius: 5px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border-color: white;
+    }
+
+    .slider-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 10;
+        transition: all 0.3s;
+        opacity: 0;
+    }
+
+    .hero-image-main:hover .slider-nav {
+        opacity: 1;
+    }
+
+    .slider-nav:hover {
+        background: white;
+        transform: translateY(-50%) scale(1.1);
+    }
+
+    .slider-nav.prev {
+        left: 15px;
+    }
+
+    .slider-nav.next {
+        right: 15px;
+    }
+
+    .slider-nav i {
+        color: #667eea;
+        font-size: 1.2rem;
     }
 
     .hero-floating-card {
@@ -818,17 +904,17 @@
         <div class="hero-text">
             <div class="hero-badge">
                 <i class="fas fa-check-circle"></i>
-                <span>বাংলাদেশ জাতীয়তাবাদী দল (BNP)</span>
+                <span>{{ $content['hero_badge_text'] ?? 'বাংলাদেশ জাতীয়তাবাদী দল (BNP)' }}</span>
             </div>
-            <h1>একটি সুন্দর ও ঐক্যবদ্ধ আগামী গড়ার প্রত্যয়ে</h1>
-            <p>গণতন্ত্রের পথেই মুক্তি, যেখানে আপনার প্রতিটি কথাই মূল্যবান এবং প্রতিটি ভোটই গড়বে আমাদের জাতির ভাগ্য।</p>
+            <h1>{{ $content['hero_title'] ?? 'একটি সুন্দর ও ঐক্যবদ্ধ আগামী গড়ার প্রত্যয়ে' }}</h1>
+            <p>{{ $content['hero_subtitle'] ?? 'গণতন্ত্রের পথেই মুক্তি, যেখানে আপনার প্রতিটি কথাই মূল্যবান এবং প্রতিটি ভোটই গড়বে আমাদের জাতির ভাগ্য।' }}</p>
             <div class="hero-buttons">
                 <a href="{{ route('contact') }}" class="btn btn-primary">
-                    <span>আজই যোগ দিন</span>
+                    <span>{{ $content['hero_button_primary'] ?? 'আজই যোগ দিন' }}</span>
                     <i class="fas fa-arrow-right"></i>
                 </a>
                 <a href="{{ route('about') }}" class="btn btn-secondary">
-                    <span>আরও জানুন</span>
+                    <span>{{ $content['hero_button_secondary'] ?? 'আরও জানুন' }}</span>
                     <i class="fas fa-info-circle"></i>
                 </a>
             </div>
@@ -836,7 +922,28 @@
         
         <div class="hero-image">
             <div class="hero-image-main">
-                <img src="https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=800&h=600&fit=crop" alt="Political Leader" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 600%22><defs><linearGradient id=%22grad1%22 x1=%220%25%22 y1=%220%25%22 x2=%22100%25%22 y2=%22100%25%22><stop offset=%220%25%22 style=%22stop-color:%234CAF50;stop-opacity:1%22 /><stop offset=%22100%25%22 style=%22stop-color:%232196F3;stop-opacity:1%22 /></linearGradient></defs><rect fill=%22url(%23grad1)%22 width=%22800%22 height=%22600%22/><circle cx=%22400%22 cy=%22250%22 r=%22100%22 fill=%22white%22 opacity=%220.3%22/><rect x=%22300%22 y=%22370%22 width=%22200%22 height=%22180%22 rx=%2210%22 fill=%22white%22 opacity=%220.3%22/><text x=%2250%25%22 y=%2295%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2240%22 font-family=%22Arial%22>রাজনৈতিক নেতা</text></svg>'">
+                <div class="hero-slider">
+                    <div class="hero-slider-track" id="sliderTrack">
+                        @forelse($heroSlides as $slide)
+                        <div class="hero-slide">
+                            <img src="{{ asset('storage/' . $slide->image) }}" alt="{{ $slide->title }}">
+                        </div>
+                        @empty
+                        <div class="hero-slide">
+                            <img src="https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=800&h=600&fit=crop" alt="Default" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 600%22><defs><linearGradient id=%22grad1%22 x1=%220%25%22 y1=%220%25%22 x2=%22100%25%22 y2=%22100%25%22><stop offset=%220%25%22 style=%22stop-color:%23667eea%22/><stop offset=%22100%25%22 style=%22stop-color:%23764ba2%22/></linearGradient></defs><rect fill=%22url(%23grad1)%22 width=%22800%22 height=%22600%22/><text x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2240%22>রাজনৈতিক নেতা</text></svg>'">
+                        </div>
+                        @endforelse
+                    </div>
+                </div>
+                @if(isset($heroSlides) && $heroSlides->count() > 1)
+                <div class="slider-nav prev" onclick="moveSlide(-1)">
+                    <i class="fas fa-chevron-left"></i>
+                </div>
+                <div class="slider-nav next" onclick="moveSlide(1)">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="slider-dots" id="sliderDots"></div>
+                @endif
             </div>
             
             <div class="hero-floating-card card-1">
@@ -866,16 +973,16 @@
 <div class="container" style="margin-top: -4rem;">
     <div class="stats">
         <div class="stat-item">
-            <span class="stat-number">১০+</span>
-            <span class="stat-label">বছর সমাজ সেবা</span>
+            <span class="stat-number">{{ $content['stat1_number'] ?? '১০+' }}</span>
+            <span class="stat-label">{{ $content['stat1_label'] ?? 'বছর সমাজ সেবা' }}</span>
         </div>
         <div class="stat-item">
-            <span class="stat-number">৫০+</span>
-            <span class="stat-label">উদ্যোগ/প্রকল্প</span>
+            <span class="stat-number">{{ $content['stat2_number'] ?? '৫০+' }}</span>
+            <span class="stat-label">{{ $content['stat2_label'] ?? 'উদ্যোগ/প্রকল্প' }}</span>
         </div>
         <div class="stat-item">
-            <span class="stat-number">২৪/৭</span>
-            <span class="stat-label">জনগণের পাশে</span>
+            <span class="stat-number">{{ $content['stat3_number'] ?? '২৪/৭' }}</span>
+            <span class="stat-label">{{ $content['stat3_label'] ?? 'জনগণের পাশে' }}</span>
         </div>
     </div>
 </div>
@@ -883,66 +990,66 @@
 <!-- Goals Section -->
 <section class="goals-section">
     <div class="container">
-        <h2 class="section-title">আমাদের <span class="highlight">লক্ষ্য</span></h2>
-        <p class="section-subtitle">স্বাস্থ্য, শিক্ষা, কর্মসংস্থান, সামাজিক নিরাপত্তা এবং মানবিক সহায়তা—এগুলোকে অগ্রাধিকার দিয়ে টেকসই উন্নয়ন।</p>
+        <h2 class="section-title">{{ $content['goals_title'] ?? 'আমাদের' }} <span class="highlight">লক্ষ্য</span></h2>
+        <p class="section-subtitle">{{ $content['goals_subtitle'] ?? 'স্বাস্থ্য, শিক্ষা, কর্মসংস্থান, সামাজিক নিরাপত্তা এবং মানবিক সহায়তা—এগুলোকে অগ্রাধিকার দিয়ে টেকসই উন্নয়ন।' }}</p>
         <div class="goals-grid">
             <div class="goal-card">
                 <div class="goal-icon">
-                    <i class="fas fa-shield-alt"></i>
+                    <i class="fas fa-{{ $content['goal1_icon'] ?? 'balance-scale' }}"></i>
                 </div>
                 <div class="goal-content">
-                    <h3>সামাজিক নিরাপত্তা</h3>
-                    <p>আমি বিশ্বাস করি যে, প্রতিটি মানুষের জন্য একটি সুরক্ষিত এবং নিশ্চিন্ত ভবিষ্যত তৈরি করা উচিত। আমি এমন একটি পরিবেশ গঠন করতে চাই যেখানে সকলেই সমান সুযোগ ও সুরক্ষা পাবে।</p>
+                    <h3>{{ $content['goal1_title'] ?? 'গণতন্ত্র ও ন্যায়বিচার' }}</h3>
+                    <p>{{ $content['goal1_description'] ?? 'সকল নাগরিকের ভোটের অধিকার রক্ষা এবং স্বাধীন বিচার ব্যবস্থা নিশ্চিত করা আমাদের প্রধান লক্ষ্য।' }}</p>
                 </div>
             </div>
 
             <div class="goal-card">
                 <div class="goal-icon">
-                    <i class="fas fa-heartbeat"></i>
+                    <i class="fas fa-{{ $content['goal2_icon'] ?? 'graduation-cap' }}"></i>
                 </div>
                 <div class="goal-content">
-                    <h3>চিকিৎসা সেবা</h3>
-                    <p>আমি চাই সকলের জন্য উন্নত এবং সহজলভ্য চিকিৎসা সেবা নিশ্চিত করা হোক। স্বাস্থ্যসেবা ব্যবস্থার উন্নয়ন এবং সকল নাগরিকের জন্য এটি সহজে প্রাপ্য হোক, এটাই আমার লক্ষ্য।</p>
+                    <h3>{{ $content['goal2_title'] ?? 'শিক্ষা ও স্বাস্থ্যসেবা' }}</h3>
+                    <p>{{ $content['goal2_description'] ?? 'মানসম্মত শিক্ষা এবং স্বাস্থ্যসেবা সবার জন্য সহজলভ্য করা এবং দক্ষ জনশক্তি গড়ে তোলা।' }}</p>
                 </div>
             </div>
 
             <div class="goal-card">
                 <div class="goal-icon">
-                    <i class="fas fa-chart-line"></i>
+                    <i class="fas fa-{{ $content['goal3_icon'] ?? 'chart-line' }}"></i>
                 </div>
                 <div class="goal-content">
-                    <h3>দেশীয় অর্থনীতি</h3>
-                    <p>আমি দেশের অর্থনৈতিক উন্নয়ন ও কর্মসংস্থানের সুযোগ বৃদ্ধির জন্য কাজ করতে চাই। আমার লক্ষ্য হল, নতুন উদ্যোগ ও পরিকল্পনার মাধ্যমে দেশের অর্থনীতি আরও শক্তিশালী করা।</p>
+                    <h3>{{ $content['goal3_title'] ?? 'দেশীয় অর্থনীতি' }}</h3>
+                    <p>{{ $content['goal3_description'] ?? 'আমি দেশের অর্থনৈতিক উন্নয়ন ও কর্মসংস্থানের সুযোগ বৃদ্ধির জন্য কাজ করতে চাই। আমার লক্ষ্য হল, নতুন উদ্যোগ ও পরিকল্পনার মাধ্যমে দেশের অর্থনীতি আরও শক্তিশালী করা।' }}</p>
                 </div>
             </div>
 
             <div class="goal-card">
                 <div class="goal-icon">
-                    <i class="fas fa-venus"></i>
+                    <i class="fas fa-{{ $content['goal4_icon'] ?? 'venus' }}"></i>
                 </div>
                 <div class="goal-content">
-                    <h3>নারী অধিকার</h3>
-                    <p>আমি নারী অধিকারের প্রতি অত্যন্ত প্রতিশ্রুতিবদ্ধ। আমি এমন একটি সমাজ গড়ে তুলতে চাই যেখানে নারীরা সমান অধিকার ও মর্যাদা পাবে।</p>
+                    <h3>{{ $content['goal4_title'] ?? 'নারী অধিকার' }}</h3>
+                    <p>{{ $content['goal4_description'] ?? 'আমি নারী অধিকারের প্রতি অত্যন্ত প্রতিশ্রুতিবদ্ধ। আমি এমন একটি সমাজ গড়ে তুলতে চাই যেখানে নারীরা সমান অধিকার ও মর্যাদা পাবে।' }}</p>
                 </div>
             </div>
 
             <div class="goal-card">
                 <div class="goal-icon">
-                    <i class="fas fa-globe"></i>
+                    <i class="fas fa-{{ $content['goal5_icon'] ?? 'globe' }}"></i>
                 </div>
                 <div class="goal-content">
-                    <h3>বৈদেশিক নীতি</h3>
-                    <p>একটি শক্তিশালী এবং বন্ধুত্বপূর্ণ বৈদেশিক নীতি গড়ে তোলা আমার অন্যতম উদ্দেশ্য, যা দেশের আন্তর্জাতিক সম্পর্ককে আরও উন্নত করবে এবং বাণিজ্যিক সুযোগ সৃষ্টি করবে।</p>
+                    <h3>{{ $content['goal5_title'] ?? 'বৈদেশিক নীতি' }}</h3>
+                    <p>{{ $content['goal5_description'] ?? 'একটি শক্তিশালী এবং বন্ধুত্বপূর্ণ বৈদেশিক নীতি গড়ে তোলা আমার অন্যতম উদ্দেশ্য, যা দেশের আন্তর্জাতিক সম্পর্ককে আরও উন্নত করবে এবং বাণিজ্যিক সুযোগ সৃষ্টি করবে।' }}</p>
                 </div>
             </div>
 
             <div class="goal-card">
                 <div class="goal-icon">
-                    <i class="fas fa-graduation-cap"></i>
+                    <i class="fas fa-{{ $content['goal6_icon'] ?? 'book-open' }}"></i>
                 </div>
                 <div class="goal-content">
-                    <h3>শিক্ষার প্রতি মনোযোগ</h3>
-                    <p>শিক্ষার মান উন্নয়ন এবং সবার জন্য সমান শিক্ষার সুযোগ নিশ্চিত করা আমার প্রধান লক্ষ্য। শিক্ষিত সমাজই দেশের পথ প্রদর্শক এবং উন্নয়নের চালিকা শক্তি।</p>
+                    <h3>{{ $content['goal6_title'] ?? 'শিক্ষার প্রতি মনোযোগ' }}</h3>
+                    <p>{{ $content['goal6_description'] ?? 'শিক্ষার মান উন্নয়ন এবং সবার জন্য সমান শিক্ষার সুযোগ নিশ্চিত করা আমার প্রধান লক্ষ্য। শিক্ষিত সমাজই দেশের পথ প্রদর্শক এবং উন্নয়নের চালিকা শক্তি।' }}</p>
                 </div>
             </div>
         </div>
@@ -1041,4 +1148,77 @@
         <a href="{{ route('contact') }}" class="btn btn-primary">যোগাযোগ করুন</a>
     </div>
 </section>
+
+<script>
+// Hero Image Slider
+let currentSlide = 0;
+const slides = document.querySelectorAll('.hero-slide');
+const totalSlides = slides.length;
+const sliderTrack = document.getElementById('sliderTrack');
+const dotsContainer = document.getElementById('sliderDots');
+let autoSlideInterval;
+
+// Create dots
+for (let i = 0; i < totalSlides; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'slider-dot' + (i === 0 ? ' active' : '');
+    dot.onclick = () => goToSlide(i);
+    dotsContainer.appendChild(dot);
+}
+
+function updateSlider() {
+    sliderTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+    
+    // Update dots
+    const dots = document.querySelectorAll('.slider-dot');
+    dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentSlide);
+    });
+}
+
+function moveSlide(direction) {
+    currentSlide += direction;
+    
+    if (currentSlide >= totalSlides) {
+        currentSlide = 0;
+    } else if (currentSlide < 0) {
+        currentSlide = totalSlides - 1;
+    }
+    
+    updateSlider();
+    resetAutoSlide();
+}
+
+function goToSlide(index) {
+    currentSlide = index;
+    updateSlider();
+    resetAutoSlide();
+}
+
+function autoSlide() {
+    currentSlide++;
+    if (currentSlide >= totalSlides) {
+        currentSlide = 0;
+    }
+    updateSlider();
+}
+
+function resetAutoSlide() {
+    clearInterval(autoSlideInterval);
+    autoSlideInterval = setInterval(autoSlide, 4000);
+}
+
+// Start auto slide
+autoSlideInterval = setInterval(autoSlide, 4000);
+
+// Pause on hover
+const heroImageMain = document.querySelector('.hero-image-main');
+heroImageMain.addEventListener('mouseenter', () => {
+    clearInterval(autoSlideInterval);
+});
+
+heroImageMain.addEventListener('mouseleave', () => {
+    resetAutoSlide();
+});
+</script>
 @endsection
