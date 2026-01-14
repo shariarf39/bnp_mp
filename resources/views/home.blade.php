@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'হোম - BNP রাজনৈতিক নেতা')
+@section('title', 'হোম - মির্জা আব্বাস')
 
 @section('styles')
 <style>
@@ -1402,7 +1402,7 @@
                     <div class="hero-slider-track" id="sliderTrack">
                         @forelse($heroSlides as $slide)
                         <div class="hero-slide">
-                            <img src="{{ asset('storage/' . $slide->image) }}" alt="{{ $slide->title }}">
+                            <img src="{{ asset('storage/app/public/' . $slide->image) }}" alt="{{ $slide->title }}">
                         </div>
                         @empty
                         <div class="hero-slide">
@@ -1537,7 +1537,7 @@
     <div class="profile-content">
         <div class="profile-image">
             @if(!empty($content['leader_image']))
-                <img src="{{ asset('storage/' . $content['leader_image']) }}" alt="Political Leader">
+                <img src="{{ asset('storage/app/public/' . $content['leader_image']) }}" alt="Political Leader">
             @else
                 <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&h=700&fit=crop" alt="Political Leader" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 500%22><defs><linearGradient id=%22grad2%22 x1=%220%25%22 y1=%220%25%22 x2=%22100%25%22 y2=%22100%25%22><stop offset=%220%25%22 style=%22stop-color:%234CAF50;stop-opacity:1%22 /><stop offset=%22100%25%22 style=%22stop-color:%232196F3;stop-opacity:1%22 /></linearGradient></defs><rect fill=%22url(%23grad2)%22 width=%22400%22 height=%22500%22/><circle cx=%22200%22 cy=%22150%22 r=%2280%22 fill=%22white%22 opacity=%220.3%22/><rect x=%22120%22 y=%22250%22 width=%22160%22 height=%22200%22 rx=%2210%22 fill=%22white%22 opacity=%220.3%22/><text x=%2250%25%22 y=%2295%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2230%22 font-family=%22Arial%22>BNP নেতা</text></svg>'">
             @endif
@@ -1588,7 +1588,7 @@
                 @foreach($activities as $activity)
                     <div class="gallery-item">
                         @if($activity->image)
-                            <img src="{{ asset('storage/' . $activity->image) }}" alt="{{ $activity->title }}">
+                            <img src="{{ asset('storage/app/public/' . $activity->image) }}" alt="{{ $activity->title }}">
                         @else
                             <img src="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 400%22><defs><linearGradient id=%22g{{ $loop->iteration }}%22 x1=%220%25%22 y1=%220%25%22 x2=%22100%25%22 y2=%22100%25%22><stop offset=%220%25%22 style=%22stop-color:%234CAF50%22/><stop offset=%22100%25%22 style=%22stop-color:%232196F3%22/></linearGradient></defs><rect fill=%22url(%23g{{ $loop->iteration }})%22 width=%22400%22 height=%22400%22/><text x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2235%22>{{ $activity->title }}</text></svg>" alt="{{ $activity->title }}">
                         @endif

@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'আমার সম্পর্কে - BNP রাজনৈতিক নেতা')
+@section('title', 'আমার সম্পর্কে - মির্জা আব্বাস')
 
 @section('styles')
 <style>
@@ -341,7 +341,7 @@
 <section class="page-header">
     @if(\App\Models\SiteContent::getValue('about_logo'))
     <div class="page-logo">
-        <img src="{{ asset('storage/' . \App\Models\SiteContent::getValue('about_logo')) }}" alt="Logo">
+        <img src="{{ asset('storage/app/public/' . \App\Models\SiteContent::getValue('about_logo')) }}" alt="Logo">
     </div>
     @endif
     <h1>{{ $about->page_title }}</h1>
@@ -353,7 +353,7 @@
     <div class="bio-section">
         <div class="bio-image">
             @if($about->bio_image)
-                <img src="{{ asset('storage/' . $about->bio_image) }}" alt="Political Leader">
+                <img src="{{ asset('storage/app/public/' . $about->bio_image) }}" alt="Political Leader">
             @else
                 <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500'><rect fill='%232d8659' width='400' height='500'/><circle cx='200' cy='150' r='80' fill='white' opacity='0.3'/><rect x='120' y='250' width='160' height='200' rx='10' fill='white' opacity='0.3'/><text x='50%25' y='95%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='30' font-family='Arial'>BNP নেতা</text></svg>" alt="Political Leader">
             @endif

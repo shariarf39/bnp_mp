@@ -104,7 +104,7 @@
                 <div class="image-upload-area">
                     @if(!empty($contents['leader_image']))
                         <div class="image-preview">
-                            <img src="{{ asset('storage/' . $contents['leader_image']) }}" alt="Leader Image" id="imagePreview">
+                            <img src="{{ asset('storage/app/public/' . $contents['leader_image']) }}" alt="Leader Image" id="imagePreview">
                         </div>
                     @else
                         <div class="upload-icon">

@@ -243,24 +243,145 @@
             width: 40px;
             height: 40px;
         }
+
+        /* Mobile Sidebar Overlay */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .sidebar-overlay.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Tablet Responsive (768px - 1024px) */
+        @media (max-width: 1024px) {
+            .content-area {
+                padding: 1.5rem;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1rem;
+            }
+            .top-bar {
+                padding: 1rem 1.5rem;
+            }
+        }
+
+        /* Mobile Responsive (max 768px) */
         @media (max-width: 768px) {
             .sidebar {
                 margin-left: -280px;
+                box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
             }
             .sidebar.active {
                 margin-left: 0;
             }
             .main-content {
                 margin-left: 0;
+                width: 100%;
             }
             .toggle-sidebar {
-                display: block;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .top-bar {
+                padding: 1rem;
+                flex-wrap: wrap;
+            }
+            .top-bar h1 {
+                font-size: 1.25rem;
+            }
+            .content-area {
+                padding: 1rem;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .stat-card {
+                padding: 1rem;
+            }
+            .card-header {
+                padding: 1rem;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.75rem;
+            }
+            .card-body {
+                padding: 1rem;
+            }
+            .btn {
+                padding: 0.625rem 1rem;
+                font-size: 0.875rem;
+            }
+            .top-bar-actions {
+                width: 100%;
+                justify-content: flex-end;
+                margin-top: 0.5rem;
+            }
+            .sidebar-header {
+                padding: 1.5rem 1rem;
+            }
+            .menu-item {
+                padding: 0.75rem 1rem;
+            }
+        }
+
+        /* Small Mobile (max 480px) */
+        @media (max-width: 480px) {
+            .top-bar h1 {
+                font-size: 1.1rem;
+            }
+            .content-area {
+                padding: 0.75rem;
+            }
+            .card {
+                border-radius: 10px;
+            }
+            .stat-card {
+                padding: 0.875rem;
+                flex-direction: column;
+                text-align: center;
+            }
+            .stat-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.25rem;
+            }
+            .stat-info p {
+                font-size: 1.5rem;
+            }
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            .btn-sm {
+                padding: 0.5rem 0.875rem;
+                font-size: 0.8rem;
+            }
+            .alert {
+                padding: 0.875rem;
+                font-size: 0.875rem;
+            }
+            .sidebar {
+                width: 260px;
             }
         }
     </style>
     @yield('styles')
 </head>
 <body>
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <h2><i class="fas fa-shield-alt"></i> অ্যাডমিন</h2>
@@ -361,8 +482,37 @@
     <script>
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
             sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
         }
+
+        // Close sidebar when clicking on menu items in mobile
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuItems = document.querySelectorAll('.menu-item');
+            const isMobile = window.innerWidth <= 768;
+            
+            if (isMobile) {
+                menuItems.forEach(item => {
+                    item.addEventListener('click', function() {
+                        const sidebar = document.getElementById('sidebar');
+                        const overlay = document.getElementById('sidebarOverlay');
+                        sidebar.classList.remove('active');
+                        overlay.classList.remove('active');
+                    });
+                });
+            }
+
+            // Close sidebar on window resize
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    const sidebar = document.getElementById('sidebar');
+                    const overlay = document.getElementById('sidebarOverlay');
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                }
+            });
+        });
     </script>
     @yield('scripts')
 </body>

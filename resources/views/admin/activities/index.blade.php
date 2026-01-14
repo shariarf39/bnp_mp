@@ -138,7 +138,7 @@
             @foreach($activities as $activity)
                 <div class="activity-card">
                     @if($activity->image)
-                        <img src="{{ asset('storage/' . $activity->image) }}" alt="{{ $activity->title }}" class="activity-image">
+                        <img src="{{ asset('storage/app/public/' . $activity->image) }}" alt="{{ $activity->title }}" class="activity-image">
                     @else
                         <div class="activity-image">
                             <i class="fas fa-image"></i>

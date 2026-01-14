@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'যোগাযোগ - BNP রাজনৈতিক নেতা')
+@section('title', 'যোগাযোগ - মির্জা আব্বাস')
 
 @section('styles')
 <style>
@@ -691,7 +691,7 @@
             <div class="leader-image-container">
                 <div class="image-ring"></div>
                 @if($leaderImage)
-                    <img src="{{ asset('storage/' . $leaderImage) }}" alt="{{ $leaderName }}">
+                    <img src="{{ asset('storage/app/public/' . $leaderImage) }}" alt="{{ $leaderName }}">
                 @else
                     <div class="leader-placeholder">
                         <i class="fas fa-user"></i>

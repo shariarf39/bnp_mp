@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'গ্যালারি - BNP রাজনৈতিক নেতা')
+@section('title', 'গ্যালারি - মির্জা আব্বাস')
 
 @section('styles')
 <style>
@@ -284,7 +284,7 @@
                 <div class="gallery-grid">
                     @foreach($categoryActivities as $activity)
                     <div class="gallery-item" data-category="{{ $activity->category }}">
-                        <img src="{{ asset('storage/' . $activity->image) }}" alt="{{ $activity->title }}">
+                        <img src="{{ asset('storage/app/public/' . $activity->image) }}" alt="{{ $activity->title }}">
                         <div class="gallery-overlay">
                             <h3>{{ $activity->title }}</h3>
                             <p>{{ $activity->description }}</p>

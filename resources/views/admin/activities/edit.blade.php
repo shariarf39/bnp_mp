@@ -113,7 +113,7 @@
                 <div class="form-group">
                     <label>বর্তমান ছবি</label>
                     <div class="current-image">
-                        <img src="{{ asset('storage/' . $activity->image) }}" alt="{{ $activity->title }}">
+                        <img src="{{ asset('storage/app/public/' . $activity->image) }}" alt="{{ $activity->title }}">
                     </div>
                 </div>
             @endif

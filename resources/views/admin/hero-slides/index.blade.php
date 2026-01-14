@@ -21,6 +21,7 @@
         padding: 0.25rem 0.75rem;
         border-radius: 20px;
         font-size: 0.85rem;
+        white-space: nowrap;
     }
     .badge-success {
         background: #d1fae5;
@@ -33,13 +34,19 @@
     .actions {
         display: flex;
         gap: 0.5rem;
+        flex-wrap: wrap;
     }
     form {
         display: inline;
     }
+    .table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
     table {
         width: 100%;
         border-collapse: collapse;
+        min-width: 800px;
     }
     th, td {
         padding: 1rem;
@@ -50,15 +57,81 @@
         background: linear-gradient(135deg, #667eea, #764ba2);
         color: white;
         font-weight: 600;
+        white-space: nowrap;
     }
     tr:hover {
         background: #f8fafc;
+    }
+    .slide-title {
+        max-width: 250px;
+    }
+    .slide-title strong {
+        display: block;
+        margin-bottom: 0.25rem;
+    }
+    .slide-title small {
+        color: #64748b;
+        display: block;
+        line-height: 1.4;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+        .card {
+            margin: 0;
+            border-radius: 8px;
+        }
+        table {
+            min-width: 700px;
+        }
+        th, td {
+            padding: 0.75rem 0.5rem;
+            font-size: 0.875rem;
+        }
+        .slide-img {
+            width: 80px;
+            height: 50px;
+        }
+        .slide-title {
+            max-width: 200px;
+        }
+        .actions {
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        .actions .btn {
+            width: 100%;
+            justify-content: center;
+        }
+        .badge {
+            font-size: 0.75rem;
+            padding: 0.2rem 0.5rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        table {
+            min-width: 650px;
+        }
+        th, td {
+            padding: 0.5rem 0.4rem;
+            font-size: 0.8rem;
+        }
+        .slide-img {
+            width: 60px;
+            height: 40px;
+        }
+        .slide-title {
+            max-width: 150px;
+            font-size: 0.8rem;
+        }
     }
 </style>
 @endsection
 
 @section('content')
     <div class="card">
+        <div class="table-wrapper">
             <table>
                 <thead>
                     <tr>
@@ -75,13 +148,15 @@
                     <tr>
                         <td>{{ $slide->id }}</td>
                         <td>
-                            <img src="{{ asset('storage/' . $slide->image) }}" alt="{{ $slide->title }}" class="slide-img">
+                            <img src="{{ asset('storage/app/public/' . $slide->image) }}" alt="{{ $slide->title }}" class="slide-img">
                         </td>
                         <td>
-                            <strong>{{ $slide->title }}</strong>
-                            @if($slide->subtitle)
-                            <br><small style="color: #64748b;">{{ Str::limit($slide->subtitle, 50) }}</small>
-                            @endif
+                            <div class="slide-title">
+                                <strong>{{ $slide->title }}</strong>
+                                @if($slide->subtitle)
+                                <small>{{ Str::limit($slide->subtitle, 50) }}</small>
+                                @endif
+                            </div>
                         </td>
                         <td>{{ $slide->order }}</td>
                         <td>

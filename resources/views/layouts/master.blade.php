@@ -551,7 +551,7 @@
         <div class="footer-content">
             <div class="footer-section">
                 @if(\App\Models\SiteContent::getValue('about_logo'))
-                <img src="{{ asset('storage/' . \App\Models\SiteContent::getValue('about_logo')) }}" alt="Logo" class="footer-logo">
+                <img src="{{ asset('storage/app/public/' . \App\Models\SiteContent::getValue('about_logo')) }}" alt="Logo" class="footer-logo">
                 @endif
                 <h3>{{ \App\Models\SiteContent::getValue('footer_about_title', 'আমাদের সম্পর্কে') }}</h3>
                 <p>{{ \App\Models\SiteContent::getValue('footer_about_text', 'গণতন্ত্রের পথেই মুক্তি, যেখানে আপনার প্রতিটি কথাই মূল্যবান এবং প্রতিটি ভোটই গড়বে আমাদের জাতির ভাগ্য।') }}</p>

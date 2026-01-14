@@ -174,7 +174,7 @@
                     <label>প্রোফাইল ছবি</label>
                     @if($about->bio_image)
                     <div class="image-preview">
-                        <img src="{{ asset('storage/' . $about->bio_image) }}" alt="Bio Image">
+                        <img src="{{ asset('storage/app/public/' . $about->bio_image) }}" alt="Bio Image">
                     </div>
                     @endif
                     <input type="file" name="bio_image" accept="image/*">

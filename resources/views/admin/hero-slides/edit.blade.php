@@ -98,7 +98,7 @@
                     <label for="image">ছবি</label>
                     <div class="current-image">
                         <p style="color: #64748b; margin-bottom: 0.5rem;">বর্তমান ছবি:</p>
-                        <img src="{{ asset('storage/' . $slide->image) }}" alt="{{ $slide->image }}">
+                        <img src="{{ asset('storage/app/public/' . $slide->image) }}" alt="{{ $slide->image }}">
                     </div>
                     <input type="file" id="image" name="image" accept="image/*" onchange="previewImage(event)" style="margin-top: 1rem;">
                     <p class="note">নতুন ছবি আপলোড করতে চাইলে নির্বাচন করুন, না হলে খালি রাখুন</p>

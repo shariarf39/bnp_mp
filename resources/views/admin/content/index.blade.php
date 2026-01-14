@@ -250,7 +250,7 @@
                             $aboutLogo = isset($contents['about']) ? $contents['about']->where('key', 'about_logo')->first() : null;
                         @endphp
                         @if($aboutLogo && $aboutLogo->value)
-                            <img src="{{ asset('storage/' . $aboutLogo->value) }}" 
+                            <img src="{{ asset('storage/app/public/' . $aboutLogo->value) }}" 
                                  alt="About Logo" style="max-width: 150px; max-height: 150px; border-radius: 10px;">
                         @endif
                     </div>
