@@ -766,7 +766,6 @@
         padding: 4rem 2rem;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: white;
-        text-align: center;
         position: relative;
         overflow: hidden;
     }
@@ -822,16 +821,81 @@
         }
     }
 
+    /* Extra Small Screens (Small Mobile) */
+    @media (max-width: 480px) {
+        .container {
+            padding: 0 1rem;
+        }
+
+        .hero h1 {
+            font-size: 1.5rem;
+        }
+
+        .hero p {
+            font-size: 0.9rem;
+        }
+
+        .hero-badge {
+            font-size: 0.75rem;
+            padding: 0.4rem 0.8rem;
+        }
+
+        .stats {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-top: -1rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+        }
+
+        .section-subtitle {
+            font-size: 0.85rem;
+        }
+
+        .gallery-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .gallery-item {
+            height: 220px;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .profile-text h2 {
+            font-size: 1.5rem;
+        }
+
+        .goal-card {
+            padding: 1.25rem;
+        }
+
+        .goal-icon {
+            width: 45px;
+            height: 45px;
+            font-size: 1.2rem;
+        }
+    }
+
     @media (max-width: 768px) {
         .hero {
             min-height: auto;
-            padding: 3rem 0;
+            padding: 2rem 0;
         }
 
         .hero-content {
             grid-template-columns: 1fr;
-            gap: 2rem;
-            padding: 2rem 1rem;
+            gap: 1.5rem;
+            padding: 1.5rem 1rem;
         }
 
         .hero-text {
@@ -839,58 +903,435 @@
         }
 
         .hero h1 {
-            font-size: 2.2rem;
+            font-size: 1.8rem;
+            line-height: 1.3;
         }
 
         .hero p {
-            font-size: 1.1rem;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .hero-badge {
+            font-size: 0.85rem;
+            padding: 0.5rem 1rem;
         }
 
         .hero-buttons {
+            flex-direction: column;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .hero-buttons .btn {
+            width: 100%;
             justify-content: center;
         }
 
         .hero-image-main {
             transform: none;
+            margin: 0 auto;
         }
 
         .hero-image-main img {
-            height: 400px;
+            height: 350px;
+            max-width: 100%;
         }
 
         .hero-floating-card {
             display: none;
         }
 
+        /* Stats Section */
         .stats {
-            margin-top: -3rem;
-            padding: 2rem 1.5rem;
-            gap: 2rem;
+            margin-top: -2rem;
+            padding: 1.5rem 1rem;
+            gap: 1.5rem;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .stat-item {
+            padding: 1.5rem 1rem;
         }
 
         .stat-number {
-            font-size: 2.5rem;
+            font-size: 2rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
         }
 
         .stat-item::after {
             display: none;
         }
 
+        /* Profile Section */
+        .profile-section {
+            padding: 3rem 1rem;
+        }
+
         .profile-content {
             grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .profile-image {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .profile-text h2 {
+            font-size: 1.8rem;
+        }
+
+        .profile-text p {
+            font-size: 0.95rem;
         }
 
         .values-list {
             grid-template-columns: 1fr;
+            gap: 0.75rem;
+        }
+
+        .value-item {
+            font-size: 0.9rem;
+        }
+
+        /* Goals Section */
+        .goals-section {
+            padding: 3rem 1rem;
         }
 
         .section-title {
-            font-size: 2rem;
+            font-size: 1.8rem;
+        }
+
+        .section-subtitle {
+            font-size: 0.95rem;
         }
 
         .goals-grid {
             grid-template-columns: 1fr;
-            gap: 1.5rem;
+            gap: 1.25rem;
+        }
+
+        .goal-card {
+            padding: 1.5rem;
+        }
+
+        .goal-icon {
+            width: 50px;
+            height: 50px;
+            font-size: 1.3rem;
+        }
+
+        .goal-content h3 {
+            font-size: 1.1rem;
+        }
+
+        .goal-content p {
+            font-size: 0.9rem;
+        }
+
+        /* Gallery Section */
+        .gallery-preview {
+            padding: 3rem 1rem;
+        }
+
+        .gallery-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .gallery-item {
+            height: 180px;
+        }
+
+        .gallery-overlay h4 {
+            font-size: 0.95rem;
+        }
+
+        .gallery-overlay p {
+            font-size: 0.8rem;
+        }
+
+        /* Contact CTA */
+        .contact-cta {
+            padding: 3rem 1rem;
+        }
+
+        /* Contact Form Styles - Professional Design */
+        .contact-cta .form-section {
+            animation: none;
+            opacity: 1;
+        }
+
+        .contact-cta .form-container {
+            background: #ffffff !important;
+            border-radius: 16px;
+            padding: 2rem 2rem;
+            position: relative;
+            z-index: 30;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(102, 126, 234, 0.1);
+            max-width: 650px;
+            margin: 0 auto;
+            opacity: 1 !important;
+        }
+
+        .contact-cta .form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #667eea);
+            background-size: 300% 100%;
+            animation: gradientMove 3s linear infinite;
+            border-radius: 16px 16px 0 0;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 300% 0%; }
+        }
+
+        /* Professional Form Styling */
+        .contact-cta .form-group,
+        .hero-main-content .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .contact-cta .form-group label,
+        .hero-main-content .form-group label {
+            display: block !important;
+            width: 100% !important;
+            text-align: left !important;
+            margin-bottom: 0.5rem !important;
+            color: #1e293b !important;
+            font-weight: 600 !important;
+            font-size: 0.9rem !important;
+            letter-spacing: 0.01em;
+        }
+
+        .contact-cta .form-group label i,
+        .hero-main-content .form-group label i {
+            margin-right: 0.4rem;
+            color: #667eea;
+            font-size: 0.9rem;
+        }
+
+        .contact-cta .form-group input,
+        .contact-cta .form-group textarea,
+        .contact-cta .form-group select,
+        .hero-main-content .form-group input,
+        .hero-main-content .form-group textarea,
+        .hero-main-content .form-group select {
+            display: block !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+            background: #f8fafc !important;
+            color: #1e293b !important;
+            border-radius: 10px !important;
+            border: 2px solid #e2e8f0 !important;
+            padding: 0.75rem 1rem !important;
+            font-size: 0.95rem !important;
+            font-family: 'Noto Sans Bengali', sans-serif !important;
+            transition: all 0.3s ease;
+            line-height: 1.5;
+        }
+
+        .contact-cta .form-group input::placeholder,
+        .contact-cta .form-group textarea::placeholder,
+        .hero-main-content .form-group input::placeholder,
+        .hero-main-content .form-group textarea::placeholder {
+            color: #94a3b8;
+        }
+
+        .contact-cta .form-group input:focus,
+        .contact-cta .form-group textarea:focus,
+        .contact-cta .form-group select:focus,
+        .hero-main-content .form-group input:focus,
+        .hero-main-content .form-group textarea:focus,
+        .hero-main-content .form-group select:focus {
+            outline: none;
+            background: #ffffff;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .contact-cta .form-row,
+        .hero-main-content .form-row {
+            display: grid !important;
+            grid-template-columns: 1fr 1fr !important;
+            gap: 1rem !important;
+            margin-bottom: 0 !important;
+        }
+
+        .contact-cta .form-row .form-group,
+        .hero-main-content .form-row .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .contact-cta .form-group textarea,
+        .hero-main-content .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+            line-height: 1.6;
+        }
+
+        .contact-cta .form-group select,
+        .hero-main-content .form-group select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23667eea' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            padding-right: 3rem;
+        }
+
+        .contact-cta .form-group select option,
+        .hero-main-content .form-group select option {
+            background: #ffffff;
+            color: #1e293b;
+            padding: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .contact-cta .form-row,
+            .hero-main-content .form-row { 
+                grid-template-columns: 1fr !important;
+                gap: 0 !important;
+            }
+            .contact-cta .form-container,
+            .hero-main-content .form-container { 
+                margin-left: auto; 
+                margin-right: auto;
+                padding: 1.5rem !important;
+                max-width: 100%;
+            }
+
+            .form-header h2 {
+                font-size: 1.3rem !important;
+            }
+
+            .form-header p {
+                font-size: 0.85rem !important;
+            }
+
+            .submit-btn {
+                font-size: 0.95rem !important;
+                padding: 0.85rem 1.25rem !important;
+            }
+        }
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 1.75rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .form-header h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.4rem;
+            color: #1e293b;
+            font-weight: 700;
+        }
+
+        .form-header h2 i {
+            color: #667eea;
+            margin-right: 0.4rem;
+        }
+
+        .form-header p {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 0.9rem 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Noto Sans Bengali', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            margin-top: 0.25rem;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.45);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .alert {
+            padding: 0.85rem 1.25rem;
+            border-radius: 10px;
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.65rem;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .alert-success {
+            background: #f0fdf4;
+            border: 2px solid #86efac;
+            color: #166534;
+        }
+
+        .alert-success i {
+            color: #22c55e;
+            font-size: 1.1rem;
+            margin-top: 0.1rem;
+        }
+
+        .alert-error {
+            background: #fef2f2;
+            border: 2px solid #fca5a5;
+            color: #991b1b;
+        }
+
+        .alert-error i {
+            color: #ef4444;
+            font-size: 1.1rem;
+            margin-top: 0.1rem;
         }
     }
 </style>
@@ -1163,12 +1604,73 @@
     </div>
 </section>
 
-<!-- Contact CTA -->
-<section class="contact-cta">
+<!-- Contact Form Section (embedded) -->
+<section class="contact-cta" style="padding: 4rem 2rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
     <div class="container">
-        <h2>আসুন, সকলে মিলে একটি সুন্দর ভবিষ্যৎ গড়ি</h2>
-        <p>উন্নত আগামী বিনির্মাণে, নেতৃত্বে ঐক্যবদ্ধ হোন! এই যাত্রায় সামিল হোন।</p>
-        <a href="{{ route('contact') }}" class="btn btn-primary">যোগাযোগ করুন</a>
+        <div class="form-section">
+            <div class="form-container" style="background: #ffffff !important; border-radius: 16px; padding: 2rem; max-width: 650px; margin: 0 auto; box-shadow: 0 20px 60px rgba(0,0,0,0.15); position: relative; z-index: 30;">
+                <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #667eea); border-radius: 16px 16px 0 0;"></div>
+                <div class="form-header" style="text-align: center; margin-bottom: 1.75rem; padding: 1rem 0; padding-top: 0.5rem; border-bottom: 2px solid #f1f5f9;">
+                    <h2 style="font-size: 1.5rem; margin-bottom: 0.4rem; color: #1e293b; font-weight: 700;"><i class="fas fa-paper-plane" style="color: #667eea; margin-right: 0.4rem;"></i> বার্তা পাঠান</h2>
+                    <p style="color: #64748b; font-size: 0.9rem; margin: 0;">আপনার মতামত বা পরামর্শ এখানে সরাসরি পাঠাতে পারেন</p>
+                </div>
+
+                @if(session('success'))
+                    <div class="alert alert-success">
+                        <i class="fas fa-check-circle"></i>
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if($errors->any())
+                    <div class="alert alert-error">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <div>
+                            @foreach($errors->all() as $error)
+                                <div>{{ $error }}</div>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+
+                <form action="{{ route('contact.submit') }}" method="POST">
+                    @csrf
+                    <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 0;">
+                        <div class="form-group" style="margin-bottom: 1.25rem;">
+                            <label for="name_home" style="display: block; width: 100%; text-align: left; margin-bottom: 0.5rem; color: #1e293b; font-weight: 600; font-size: 0.9rem;">আপনার নাম *</label>
+                            <input type="text" id="name_home" name="name" value="{{ old('name') }}" required placeholder="পূর্ণ নাম লিখুন" style="display: block; width: 100%; box-sizing: border-box; background: #f8fafc; color: #1e293b; border-radius: 10px; border: 2px solid #e2e8f0; padding: 0.75rem 1rem; font-size: 0.95rem; font-family: 'Noto Sans Bengali', sans-serif;">
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 1.25rem;">
+                            <label for="phone_home" style="display: block; width: 100%; text-align: left; margin-bottom: 0.5rem; color: #1e293b; font-weight: 600; font-size: 0.9rem;">ফোন নম্বর</label>
+                            <input type="tel" id="phone_home" name="phone" value="{{ old('phone') }}" placeholder="০১XXXXXXXXX" style="display: block; width: 100%; box-sizing: border-box; background: #f8fafc; color: #1e293b; border-radius: 10px; border: 2px solid #e2e8f0; padding: 0.75rem 1rem; font-size: 0.95rem; font-family: 'Noto Sans Bengali', sans-serif;">
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 1.25rem;">
+                        <label for="subject_home" style="display: block; width: 100%; text-align: left; margin-bottom: 0.5rem; color: #1e293b; font-weight: 600; font-size: 0.9rem;">বিষয়</label>
+                        <select id="subject_home" name="subject" style="display: block; width: 100%; box-sizing: border-box; background: #f8fafc; color: #1e293b; border-radius: 10px; border: 2px solid #e2e8f0; padding: 0.75rem 1rem; font-size: 0.95rem; font-family: 'Noto Sans Bengali', sans-serif; cursor: pointer;">
+                            <option value="">বিষয় নির্বাচন করুন</option>
+                            <option value="general">সাধারণ অনুসন্ধান</option>
+                            <option value="support">সহায়তা অনুরোধ</option>
+                            <option value="feedback">মতামত ও পরামর্শ</option>
+                            <option value="volunteer">স্বেচ্ছাসেবক হতে চাই</option>
+                            <option value="other">অন্যান্য</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 1.25rem;">
+                        <label for="message_home" style="display: block; width: 100%; text-align: left; margin-bottom: 0.5rem; color: #1e293b; font-weight: 600; font-size: 0.9rem;">আপনার বার্তা *</label>
+                        <textarea id="message_home" name="message" required placeholder="আপনার মতামত, পরামর্শ বা যেকোনো বার্তা লিখুন..." style="display: block; width: 100%; box-sizing: border-box; background: #f8fafc; color: #1e293b; border-radius: 10px; border: 2px solid #e2e8f0; padding: 0.75rem 1rem; font-size: 0.95rem; font-family: 'Noto Sans Bengali', sans-serif; resize: vertical; min-height: 100px; line-height: 1.6;">{{ old('message') }}</textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn" style="width: 100%; padding: 0.9rem 1.5rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; font-family: 'Noto Sans Bengali', sans-serif; display: flex; align-items: center; justify-content: center; gap: 0.6rem; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3); margin-top: 0.25rem;">
+                        <i class="fas fa-paper-plane"></i>
+                        <span>বার্তা পাঠান</span>
+                    </button>
+                </form>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -1243,5 +1745,25 @@ heroImageMain.addEventListener('mouseenter', () => {
 heroImageMain.addEventListener('mouseleave', () => {
     resetAutoSlide();
 });
+
+// Contact form behavior (home page)
+setTimeout(function() {
+    const alert = document.querySelector('.form-section .alert-success');
+    if (alert) {
+        alert.style.transition = 'all 0.5s';
+        alert.style.opacity = '0';
+        alert.style.transform = 'translateY(-10px)';
+        setTimeout(() => alert.remove(), 500);
+    }
+}, 5000);
+
+const homeForm = document.querySelector('.form-section form');
+if (homeForm) {
+    homeForm.addEventListener('submit', function(e) {
+        const submitBtn = homeForm.querySelector('.submit-btn');
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>পাঠানো হচ্ছে...</span>';
+        submitBtn.disabled = true;
+    });
+}
 </script>
 @endsection

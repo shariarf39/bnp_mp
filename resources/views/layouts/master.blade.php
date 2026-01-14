@@ -156,11 +156,45 @@
         /* Mobile Menu Toggle */
         .mobile-toggle {
             display: none;
-            background: none;
+            background: rgba(102, 126, 234, 0.1);
             border: none;
             color: #667eea;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             cursor: pointer;
+            padding: 0.6rem 0.7rem;
+            border-radius: 10px;
+            transition: all 0.3s;
+            z-index: 1002;
+            position: relative;
+        }
+
+        .mobile-toggle:hover {
+            background: rgba(102, 126, 234, 0.2);
+            color: #764ba2;
+            transform: scale(1.05);
+        }
+
+        .mobile-toggle:active {
+            transform: scale(0.95);
+        }
+
+        /* Mobile Drawer Overlay */
+        .mobile-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .mobile-overlay.active {
+            display: block;
+            opacity: 1;
         }
 
         /* Main Content */
@@ -357,41 +391,115 @@
             margin: 0;
         }
 
-        /* Responsive */
+        /* Responsive Mobile Drawer */
         @media (max-width: 768px) {
             .mobile-toggle {
                 display: block;
             }
 
+            .nav-container {
+                padding: 0 1rem;
+                position: relative;
+            }
+
+            .mobile-toggle {
+                margin-left: auto;
+            }
+
+            .logo span {
+                font-size: 1rem;
+            }
+
+            .logo-icon img {
+                height: 50px;
+            }
+
+            /* Mobile Drawer Menu */
             .nav-menu {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: white;
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
                 flex-direction: column;
-                padding: 1rem;
+                padding: 5rem 0 2rem 0;
                 gap: 0;
-                box-shadow: 0 4px 20px rgba(102, 126, 234, 0.15);
+                box-shadow: -5px 0 30px rgba(0, 0, 0, 0.15);
+                transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                z-index: 1000;
+                overflow-y: auto;
             }
 
             .nav-menu.active {
+                right: 0;
                 display: flex;
+            }
+
+            /* Drawer Header */
+            .nav-menu::before {
+                content: 'মেনু';
+                position: absolute;
+                top: 1.5rem;
+                left: 1.5rem;
+                font-size: 1.3rem;
+                font-weight: 700;
+                color: #1e293b;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
             }
 
             .nav-menu li {
                 width: 100%;
+                border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+            }
+
+            .nav-menu li:last-child {
+                border-bottom: none;
+                margin-top: 1rem;
+                padding: 0 1.5rem;
             }
 
             .nav-menu a {
-                display: block;
-                padding: 1rem;
+                display: flex;
+                align-items: center;
+                padding: 1.2rem 1.5rem;
+                font-size: 1rem;
+                border-radius: 0;
+                background: transparent;
             }
 
-            .cta-btn {
-                display: inline-block;
-                margin-top: 1rem;
+            .nav-menu a::after {
+                display: none;
+            }
+
+            .nav-menu a:hover, .nav-menu a.active {
+                background: rgba(102, 126, 234, 0.1);
+                padding-left: 2rem;
+            }
+
+            .nav-menu a::before {
+                content: '';
+                width: 4px;
+                height: 100%;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                position: absolute;
+                left: 0;
+                opacity: 0;
+                transition: opacity 0.3s;
+            }
+
+            .nav-menu a.active::before {
+                opacity: 1;
+            }
+
+            .cta-btn, .admin-btn {
+                display: block;
+                width: 100%;
+                text-align: center;
+                margin-top: 0;
+                border-radius: 12px;
             }
 
             .footer-content {
@@ -403,6 +511,9 @@
     @yield('styles')
 </head>
 <body>
+    <!-- Mobile Overlay -->
+    <div class="mobile-overlay" id="mobileOverlay" onclick="closeMenu()"></div>
+
     <!-- Header -->
     <header class="header">
         <div class="nav-container">
@@ -413,12 +524,12 @@
                 <span>Mirza Abbas</span>
             </a>
             
-            <button class="mobile-toggle" onclick="toggleMenu()">
+            <button class="mobile-toggle" id="mobileToggle" onclick="toggleMenu()" aria-label="Toggle menu">
                 <i class="fas fa-bars"></i>
             </button>
             
             <nav>
-                <ul class="nav-menu" id="navMenu">
+                <ul class="nav-menu" id="navMenu" onclick="handleMenuClick(event)">
                     <li><a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">হোম</a></li>
                     <li><a href="{{ route('about') }}" class="{{ request()->routeIs('about') ? 'active' : '' }}">আমার সম্পর্কে</a></li>
                     <li><a href="{{ route('gallery') }}" class="{{ request()->routeIs('gallery') ? 'active' : '' }}">গ্যালারি</a></li>
@@ -480,17 +591,50 @@
 
     <script>
         function toggleMenu() {
-            document.getElementById('navMenu').classList.toggle('active');
+            const menu = document.getElementById('navMenu');
+            const overlay = document.getElementById('mobileOverlay');
+            const toggle = document.getElementById('mobileToggle');
+            const body = document.body;
+            
+            menu.classList.toggle('active');
+            overlay.classList.toggle('active');
+            
+            // Prevent body scroll when menu is open
+            if (menu.classList.contains('active')) {
+                body.style.overflow = 'hidden';
+                toggle.innerHTML = '<i class="fas fa-times"></i>';
+            } else {
+                body.style.overflow = '';
+                toggle.innerHTML = '<i class="fas fa-bars"></i>';
+            }
         }
 
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function(event) {
+        function closeMenu() {
             const menu = document.getElementById('navMenu');
-            const toggle = document.querySelector('.mobile-toggle');
+            const overlay = document.getElementById('mobileOverlay');
+            const toggle = document.getElementById('mobileToggle');
+            const body = document.body;
             
-            if (!menu.contains(event.target) && !toggle.contains(event.target)) {
-                menu.classList.remove('active');
+            menu.classList.remove('active');
+            overlay.classList.remove('active');
+            body.style.overflow = '';
+            toggle.innerHTML = '<i class="fas fa-bars"></i>';
+        }
+
+        // Close menu on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeMenu();
             }
+        });
+
+        // Close menu when clicking on a link (except CTA button)
+        document.querySelectorAll('.nav-menu a:not(.cta-btn):not(.admin-btn)').forEach(link => {
+            link.addEventListener('click', function() {
+                if (window.innerWidth <= 768) {
+                    setTimeout(closeMenu, 300);
+                }
+            });
         });
     </script>
     @yield('scripts')
