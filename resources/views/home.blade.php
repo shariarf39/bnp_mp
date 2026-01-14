@@ -33,14 +33,14 @@
         content: '';
         position: absolute;
         top: 50%;
-        left: 10%;
-        width: 450px;
-        height: 450px;
-        background-image: url('/images/bnp_logo.png');
+        left: 5%;
+        width: 500px;
+        height: 500px;
+        background-image: url('{{ asset('images/bnp_logo.png') }}');
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
-        opacity: 0.08;
+        opacity: 0.25;
         transform: translateY(-50%);
         z-index: 1;
         pointer-events: none;
@@ -144,8 +144,9 @@
     .hero-slider {
         position: relative;
         width: 100%;
-        height: 400px;
+        height: 500px;
         overflow: hidden;
+        border-radius: 20px;
     }
 
     .hero-slider-track {
@@ -163,9 +164,9 @@
     .hero-slide img {
         width: 100%;
         height: 100%;
-        object-fit: contain;
+        object-fit: cover;
         display: block;
-        background: transparent;
+        background: #f5f7fa;
     }
 
     .slider-dots {
@@ -956,6 +957,34 @@
         .hero-image-main img {
             height: 350px;
             max-width: 100%;
+        }
+
+        .hero-slider {
+            height: 350px;
+            border-radius: 15px;
+        }
+
+        .hero::after {
+            width: 200px;
+            height: 200px;
+            left: 50%;
+            top: 20%;
+            transform: translate(-50%, -50%);
+            opacity: 0.12;
+        }
+
+        .slider-nav {
+            opacity: 1;
+            width: 35px;
+            height: 35px;
+        }
+
+        .slider-nav.prev {
+            left: 10px;
+        }
+
+        .slider-nav.next {
+            right: 10px;
         }
 
         .hero-floating-card {

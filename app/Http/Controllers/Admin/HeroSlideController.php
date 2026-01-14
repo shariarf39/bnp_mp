@@ -23,7 +23,7 @@ class HeroSlideController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:20048',
             'order' => 'nullable|integer',
             'active' => 'nullable|boolean'
         ]);
@@ -50,7 +50,7 @@ class HeroSlideController extends Controller
     public function update(Request $request, HeroSlide $heroSlide)
     {
         $validated = $request->validate([
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:20048',
             'order' => 'nullable|integer',
             'active' => 'nullable|boolean'
         ]);

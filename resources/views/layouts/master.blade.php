@@ -6,6 +6,10 @@
     <title>@yield('title', 'রাজনৈতিক নেতা - BNP')</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/webp" href="{{ asset('images/Dhaner-Shish-_2 (1).webp') }}">
+    <!-- Web Logo -->
+    <img src="{{ asset('images/Dhaner-Shish-_2 (1).webp') }}" alt="Logo" style="display:none;">
+     
     <style>
         * {
             margin: 0;
@@ -521,7 +525,7 @@
                 <div class="logo-icon">
                     <img src="{{ asset('images/Dhaner-Shish-_2 (1).webp') }}" alt="Logo">
                 </div>
-                <span>Mirza Abbas</span>
+                <span>মির্জা আব্বাসs</span>
             </a>
             
             <button class="mobile-toggle" id="mobileToggle" onclick="toggleMenu()" aria-label="Toggle menu">
@@ -585,7 +589,8 @@
         </div>
         
         <div class="footer-bottom">
-            <p>&copy; {{ date('Y') }} {{ \App\Models\SiteContent::getValue('footer_copyright', 'BNP রাজনৈতিক নেতা। সর্বস্বত্ব সংরক্ষিত।') }}</p>
+            <p>&copy; {{ date('Y') }} {{ \App\Models\SiteContent::getValue('footer_copyright', 'মির্জা আব্বাস। সর্বস্বত্ব সংরক্ষিত।') }}</p>
+            <p style="font-size: 0.95em; margin-top: 4px;">Design and developed by <a href="https://fabtechit.com/" target="_blank" rel="noopener" style="color: #764ba2; text-decoration: underline;">FabTech.IT</a></p>
         </div>
     </footer>
 
