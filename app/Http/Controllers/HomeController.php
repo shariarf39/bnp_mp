@@ -44,7 +44,16 @@ class HomeController extends Controller
             'phone' => 'nullable|max:20',
             'subject' => 'nullable|max:255',
             'message' => 'required',
+            'attachment' => 'nullable|file|mimes:jpeg,jpg,png,gif,mp4,mov,avi,pdf|max:20480', // 20MB max
         ]);
+
+        // Handle file upload
+        if ($request->hasFile('attachment')) {
+            $file = $request->file('attachment');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $path = $file->storeAs('contact_attachments', $filename, 'public');
+            $validated['attachment'] = $path;
+        }
 
         // Save to database
         ContactMessage::create($validated);

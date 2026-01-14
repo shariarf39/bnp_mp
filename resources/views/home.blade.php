@@ -1697,7 +1697,7 @@
                     </div>
                 @endif
 
-                <form action="{{ route('contact.submit') }}" method="POST">
+                <form action="{{ route('contact.submit') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 0;">
                         <div class="form-group" style="margin-bottom: 1.25rem;">
@@ -1726,6 +1726,28 @@
                     <div class="form-group" style="margin-bottom: 1.25rem;">
                         <label for="message_home" style="display: block; width: 100%; text-align: left; margin-bottom: 0.5rem; color: #1e293b; font-weight: 600; font-size: 0.9rem;">আপনার বার্তা *</label>
                         <textarea id="message_home" name="message" required placeholder="আপনার মতামত, পরামর্শ বা যেকোনো বার্তা লিখুন..." style="display: block; width: 100%; box-sizing: border-box; background: #f8fafc; color: #1e293b; border-radius: 10px; border: 2px solid #e2e8f0; padding: 0.75rem 1rem; font-size: 0.95rem; font-family: 'Noto Sans Bengali', sans-serif; resize: vertical; min-height: 100px; line-height: 1.6;">{{ old('message') }}</textarea>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 1.25rem;">
+                        <label for="attachment_home" style="display: block; width: 100%; text-align: left; margin-bottom: 0.5rem; color: #1e293b; font-weight: 600; font-size: 0.9rem;"><i class="fas fa-paperclip"></i> ছবি বা ভিডিও সংযুক্ত করুন (ঐচ্ছিক)</label>
+                        <input type="file" id="attachment_home" name="attachment" accept="image/*,video/*,.pdf" style="display: none;">
+                        <div class="file-input-label-home" id="file-label-home" onclick="document.getElementById('attachment_home').click();" style="width: 100%; padding: 1rem; border: 2px dashed #cbd5e1; border-radius: 10px; background: #f8fafc; color: #64748b; text-align: center; cursor: pointer; transition: all 0.3s; display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-cloud-upload-alt" style="font-size: 1.5rem; color: #667eea;"></i>
+                            <span id="file-name-home" style="font-weight: 500; word-break: break-all; display: block; max-width: 100%; overflow: hidden; text-overflow: ellipsis;">ফাইল নির্বাচন করুন (সর্বোচ্চ ২০ MB)</span>
+                        </div>
+                        <div id="file-preview-home" style="margin-top: 1rem; display: none;">
+                            <div style="position: relative; max-width: 300px; margin: 0 auto;">
+                                <img id="image-preview-home" style="max-width: 100%; border-radius: 10px; display: none; border: 2px solid #e2e8f0;">
+                                <video id="video-preview-home" controls style="max-width: 100%; border-radius: 10px; display: none; border: 2px solid #e2e8f0;"></video>
+                                <div id="pdf-preview-home" style="padding: 1rem; background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 10px; text-align: center; display: none;">
+                                    <i class="fas fa-file-pdf" style="font-size: 3rem; color: #ef4444;"></i>
+                                    <p id="pdf-name-home" style="margin-top: 0.5rem; color: #1e293b;"></p>
+                                </div>
+                                <button type="button" onclick="clearFileHome()" style="position: absolute; top: -10px; right: -10px; width: 30px; height: 30px; border-radius: 50%; background: #ef4444; color: white; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
 
                     <button type="submit" class="submit-btn" style="width: 100%; padding: 0.9rem 1.5rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; font-family: 'Noto Sans Bengali', sans-serif; display: flex; align-items: center; justify-content: center; gap: 0.6rem; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3); margin-top: 0.25rem;">
@@ -1828,6 +1850,106 @@ if (homeForm) {
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>পাঠানো হচ্ছে...</span>';
         submitBtn.disabled = true;
     });
+}
+
+// File upload handling for home page
+const fileInputHome = document.getElementById('attachment_home');
+const fileLabelHome = document.getElementById('file-label-home');
+const fileNameHome = document.getElementById('file-name-home');
+const filePreviewHome = document.getElementById('file-preview-home');
+const imagePreviewHome = document.getElementById('image-preview-home');
+const videoPreviewHome = document.getElementById('video-preview-home');
+const pdfPreviewHome = document.getElementById('pdf-preview-home');
+const pdfNameHome = document.getElementById('pdf-name-home');
+
+if (fileInputHome) {
+    console.log('File input home found');
+    fileInputHome.addEventListener('change', function(e) {
+        console.log('File selected:', this.files);
+        if (this.files && this.files[0]) {
+            const file = this.files[0];
+            const fileSize = (file.size / 1024 / 1024).toFixed(2);
+            console.log('File name:', file.name, 'Size:', fileSize);
+            
+            if (fileNameHome) {
+                fileNameHome.innerHTML = '<strong style="color: #667eea;">✓ ' + file.name + '</strong> (' + fileSize + ' MB)';
+                fileNameHome.setAttribute('style', 'font-weight: 600; word-break: break-all; display: block; max-width: 100%; color: #667eea !important;');
+            }
+            
+            if (fileLabelHome) {
+                fileLabelHome.style.borderColor = '#667eea';
+                fileLabelHome.style.borderStyle = 'solid';
+                fileLabelHome.style.background = 'rgba(102, 126, 234, 0.1)';
+            }
+            
+            // Hide all previews first
+            if (imagePreviewHome) imagePreviewHome.style.display = 'none';
+            if (videoPreviewHome) videoPreviewHome.style.display = 'none';
+            if (pdfPreviewHome) pdfPreviewHome.style.display = 'none';
+            
+            if (file.type.startsWith('image/')) {
+                console.log('Image detected');
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    console.log('Image loaded');
+                    if (imagePreviewHome) {
+                        imagePreviewHome.src = e.target.result;
+                        imagePreviewHome.style.display = 'block';
+                    }
+                    if (filePreviewHome) {
+                        filePreviewHome.style.display = 'block';
+                    }
+                };
+                reader.readAsDataURL(file);
+            } else if (file.type.startsWith('video/')) {
+                console.log('Video detected');
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    console.log('Video loaded');
+                    if (videoPreviewHome) {
+                        videoPreviewHome.src = e.target.result;
+                        videoPreviewHome.style.display = 'block';
+                    }
+                    if (filePreviewHome) {
+                        filePreviewHome.style.display = 'block';
+                    }
+                };
+                reader.readAsDataURL(file);
+            } else if (file.type === 'application/pdf') {
+                console.log('PDF detected');
+                if (pdfNameHome) pdfNameHome.textContent = file.name;
+                if (pdfPreviewHome) pdfPreviewHome.style.display = 'block';
+                if (filePreviewHome) filePreviewHome.style.display = 'block';
+            }
+        } else {
+            if (fileNameHome) {
+                fileNameHome.textContent = 'ফাইল নির্বাচন করুন (সর্বোচ্চ ২০ MB)';
+                fileNameHome.setAttribute('style', 'font-weight: 500; word-break: break-all; display: block; max-width: 100%; color: #64748b;');
+            }
+            if (fileLabelHome) {
+                fileLabelHome.style.borderColor = '#cbd5e1';
+                fileLabelHome.style.borderStyle = 'dashed';
+                fileLabelHome.style.background = '#f8fafc';
+            }
+            if (filePreviewHome) filePreviewHome.style.display = 'none';
+        }
+    });
+}
+
+function clearFileHome() {
+    if (fileInputHome) fileInputHome.value = '';
+    if (fileNameHome) {
+        fileNameHome.textContent = 'ফাইল নির্বাচন করুন (সর্বোচ্চ ২০ MB)';
+        fileNameHome.setAttribute('style', 'font-weight: 500; word-break: break-all; display: block; max-width: 100%; color: #64748b;');
+    }
+    if (fileLabelHome) {
+        fileLabelHome.style.borderColor = '#cbd5e1';
+        fileLabelHome.style.borderStyle = 'dashed';
+        fileLabelHome.style.background = '#f8fafc';
+    }
+    if (filePreviewHome) filePreviewHome.style.display = 'none';
+    if (imagePreviewHome) imagePreviewHome.src = '';
+    if (videoPreviewHome) videoPreviewHome.src = '';
 }
 </script>
 @endsection

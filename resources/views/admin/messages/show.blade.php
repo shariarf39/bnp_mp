@@ -62,6 +62,57 @@
         </div>
     </div>
 
+    @if($message->attachment)
+    <div class="message-attachment-detail">
+        <h3><i class="fas fa-paperclip"></i> সংযুক্তি</h3>
+        @php
+            $extension = strtolower(pathinfo($message->attachment, PATHINFO_EXTENSION));
+            $filePath = asset('storage/app/public/' . $message->attachment);
+        @endphp
+        
+        @if(in_array($extension, ['jpg', 'jpeg', 'png', 'gif', 'webp']))
+            <div class="attachment-preview">
+                <img src="{{ $filePath }}" alt="সংযুক্তি" style="max-width: 100%; max-height: 500px; border-radius: 10px; border: 2px solid #e2e8f0;">
+                <div class="attachment-info">
+                    <i class="fas fa-image"></i> ছবি
+                    <a href="{{ $filePath }}" download class="btn-download">
+                        <i class="fas fa-download"></i> ডাউনলোড করুন
+                    </a>
+                </div>
+            </div>
+        @elseif(in_array($extension, ['mp4', 'mov', 'avi', 'webm']))
+            <div class="attachment-preview">
+                <video controls style="max-width: 100%; max-height: 500px; border-radius: 10px; border: 2px solid #e2e8f0;">
+                    <source src="{{ $filePath }}" type="video/{{ $extension }}">
+                    আপনার ব্রাউজার ভিডিও প্লেব্যাক সমর্থন করে না।
+                </video>
+                <div class="attachment-info">
+                    <i class="fas fa-video"></i> ভিডিও
+                    <a href="{{ $filePath }}" download class="btn-download">
+                        <i class="fas fa-download"></i> ডাউনলোড করুন
+                    </a>
+                </div>
+            </div>
+        @elseif($extension == 'pdf')
+            <div class="attachment-preview">
+                <div style="padding: 2rem; background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 10px; text-align: center;">
+                    <i class="fas fa-file-pdf" style="font-size: 5rem; color: #ef4444; margin-bottom: 1rem;"></i>
+                    <p style="margin-bottom: 1rem; color: #1e293b; font-weight: 600;">{{ basename($message->attachment) }}</p>
+                </div>
+                <div class="attachment-info">
+                    <i class="fas fa-file-pdf"></i> PDF ফাইল
+                    <a href="{{ $filePath }}" target="_blank" class="btn-download">
+                        <i class="fas fa-eye"></i> দেখুন
+                    </a>
+                    <a href="{{ $filePath }}" download class="btn-download">
+                        <i class="fas fa-download"></i> ডাউনলোড করুন
+                    </a>
+                </div>
+            </div>
+        @endif
+    </div>
+    @endif
+
     <div class="message-detail-actions">
         @if($message->email)
         <a href="mailto:{{ $message->email }}" class="btn-reply">
@@ -231,6 +282,61 @@
     line-height: 1.9;
     font-size: 1.05rem;
     border-left: 4px solid #667eea;
+}
+
+.message-attachment-detail {
+    margin-bottom: 2rem;
+}
+
+.message-attachment-detail h3 {
+    font-size: 1.1rem;
+    color: #475569;
+    margin-bottom: 1rem;
+}
+
+.message-attachment-detail h3 i {
+    color: #667eea;
+    margin-right: 0.5rem;
+}
+
+.attachment-preview {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+}
+
+.attachment-info {
+    padding: 1rem 1.5rem;
+    background: #f8fafc;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.attachment-info i {
+    color: #667eea;
+    font-size: 1.2rem;
+}
+
+.btn-download {
+    margin-left: auto;
+    padding: 0.5rem 1rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-download:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
 }
 
 .message-detail-actions {

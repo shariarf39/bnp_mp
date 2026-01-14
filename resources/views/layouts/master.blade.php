@@ -525,7 +525,7 @@
                 <div class="logo-icon">
                     <img src="{{ asset('images/Dhaner-Shish-_2 (1).webp') }}" alt="Logo">
                 </div>
-                <span>মির্জা আব্বাসs</span>
+                <span>মির্জা আব্বাস</span>
             </a>
             
             <button class="mobile-toggle" id="mobileToggle" onclick="toggleMenu()" aria-label="Toggle menu">

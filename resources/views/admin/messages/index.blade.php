@@ -101,6 +101,23 @@
             {{ Str::limit($message->message, 200) }}
         </div>
         
+        @if($message->attachment)
+        <div class="message-attachment">
+            <i class="fas fa-paperclip"></i> 
+            <span>সংযুক্তি আছে</span>
+            @php
+                $extension = strtolower(pathinfo($message->attachment, PATHINFO_EXTENSION));
+            @endphp
+            @if(in_array($extension, ['jpg', 'jpeg', 'png', 'gif', 'webp']))
+                <span class="attachment-type"><i class="fas fa-image"></i> ছবি</span>
+            @elseif(in_array($extension, ['mp4', 'mov', 'avi', 'webm']))
+                <span class="attachment-type"><i class="fas fa-video"></i> ভিডিও</span>
+            @elseif($extension == 'pdf')
+                <span class="attachment-type"><i class="fas fa-file-pdf"></i> PDF</span>
+            @endif
+        </div>
+        @endif
+        
         <div class="message-actions">
             <a href="{{ route('admin.messages.show', $message) }}" class="btn-view">
                 <i class="fas fa-eye"></i> বিস্তারিত দেখুন
@@ -399,6 +416,32 @@
     color: #475569;
     line-height: 1.7;
     margin-bottom: 1rem;
+}
+
+.message-attachment {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border: 1px solid #bae6fd;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    color: #0369a1;
+}
+
+.message-attachment i {
+    color: #0284c7;
+}
+
+.message-attachment .attachment-type {
+    margin-left: auto;
+    padding: 0.25rem 0.75rem;
+    background: white;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
 }
 
 .message-actions {

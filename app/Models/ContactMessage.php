@@ -12,6 +12,7 @@ class ContactMessage extends Model
         'phone',
         'subject',
         'message',
+        'attachment',
         'is_read'
     ];
 

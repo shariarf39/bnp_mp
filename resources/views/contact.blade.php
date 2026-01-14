@@ -380,6 +380,44 @@
         min-height: 120px;
     }
 
+    /* File Upload Styling */
+    .file-input {
+        display: none;
+    }
+
+    .file-input-label {
+        width: 100%;
+        padding: 1.5rem;
+        border: 2px dashed rgba(255, 255, 255, 0.3);
+        border-radius: 15px;
+        background: rgba(255, 255, 255, 0.05);
+        color: rgba(255, 255, 255, 0.6);
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .file-input-label:hover {
+        border-color: #667eea;
+        background: rgba(102, 126, 234, 0.1);
+        color: white;
+    }
+
+    .file-input-label i {
+        font-size: 2rem;
+        color: #667eea;
+    }
+
+    .file-input-label.has-file {
+        border-color: #667eea;
+        background: rgba(102, 126, 234, 0.15);
+        color: white;
+    }
+
     .submit-btn {
         width: 100%;
         padding: 1.2rem;
@@ -756,7 +794,7 @@
                     </div>
                 @endif
 
-                <form action="{{ route('contact.submit') }}" method="POST">
+                <form action="{{ route('contact.submit') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     
                     <div class="form-row">
@@ -786,6 +824,28 @@
                     <div class="form-group">
                         <label for="message"><i class="fas fa-comment-dots"></i> আপনার বার্তা *</label>
                         <textarea id="message" name="message" required placeholder="আপনার মতামত, পরামর্শ বা যেকোনো বার্তা লিখুন...">{{ old('message') }}</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="attachment"><i class="fas fa-paperclip"></i> ছবি বা ভিডিও সংযুক্ত করুন (ঐচ্ছিক)</label>
+                        <input type="file" id="attachment" name="attachment" accept="image/*,video/*,.pdf" class="file-input">
+                        <div class="file-input-label" id="file-label" style="cursor: pointer;">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <span id="file-name">ফাইল নির্বাচন করুন (সর্বোচ্চ ২০ MB)</span>
+                        </div>
+                        <div id="file-preview" style="margin-top: 1rem; display: none;">
+                            <div style="position: relative; max-width: 300px; margin: 0 auto;">
+                                <img id="image-preview" style="max-width: 100%; border-radius: 10px; display: none;">
+                                <video id="video-preview" controls style="max-width: 100%; border-radius: 10px; display: none;"></video>
+                                <div id="pdf-preview" style="padding: 1rem; background: rgba(255,255,255,0.1); border-radius: 10px; text-align: center; display: none;">
+                                    <i class="fas fa-file-pdf" style="font-size: 3rem; color: #ef4444;"></i>
+                                    <p id="pdf-name" style="margin-top: 0.5rem; color: white;"></p>
+                                </div>
+                                <button type="button" onclick="clearFile()" style="position: absolute; top: -10px; right: -10px; width: 30px; height: 30px; border-radius: 50%; background: #ef4444; color: white; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
 
                     <button type="submit" class="submit-btn">
@@ -957,5 +1017,68 @@
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>পাঠানো হচ্ছে...</span>';
         submitBtn.disabled = true;
     });
+
+    // File upload handling
+    const fileInput = document.getElementById('attachment');
+    const fileLabel = document.getElementById('file-label');
+    const fileName = document.getElementById('file-name');
+    const filePreview = document.getElementById('file-preview');
+    const imagePreview = document.getElementById('image-preview');
+    const videoPreview = document.getElementById('video-preview');
+    const pdfPreview = document.getElementById('pdf-preview');
+    const pdfName = document.getElementById('pdf-name');
+
+    fileLabel.addEventListener('click', function() {
+        fileInput.click();
+    });
+
+    fileInput.addEventListener('change', function() {
+        if (this.files && this.files[0]) {
+            const file = this.files[0];
+            const fileSize = (file.size / 1024 / 1024).toFixed(2);
+            fileName.textContent = file.name + ' (' + fileSize + ' MB)';
+            fileLabel.classList.add('has-file');
+            
+            // Show preview
+            imagePreview.style.display = 'none';
+            videoPreview.style.display = 'none';
+            pdfPreview.style.display = 'none';
+            
+            if (file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.display = 'block';
+                    filePreview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            } else if (file.type.startsWith('video/')) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    videoPreview.src = e.target.result;
+                    videoPreview.style.display = 'block';
+                    filePreview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            } else if (file.type === 'application/pdf') {
+                pdfName.textContent = file.name;
+                pdfPreview.style.display = 'block';
+                filePreview.style.display = 'block';
+            }
+        } else {
+            fileName.textContent = 'ফাইল নির্বাচন করুন (সর্বোচ্চ ২০ MB)';
+            fileLabel.classList.remove('has-file');
+            filePreview.style.display = 'none';
+        }
+    });
+    
+    function clearFile() {
+        fileInput.value = '';
+        fileName.textContent = 'ফাইল নির্বাচন করুন (সর্বোচ্চ ২০ MB)';
+        fileLabel.classList.remove('has-file');
+        filePreview.style.display = 'none';
+        imagePreview.src = '';
+        videoPreview.src = '';
+    }
 </script>
 @endsection
