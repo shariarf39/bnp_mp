@@ -307,14 +307,21 @@
                         <span style="background: #ef4444; color: white; padding: 0.15rem 0.5rem; border-radius: 10px; font-size: 0.75rem; margin-left: auto;">{{ $unreadCount }}</span>
                     @endif
                 </a>
+                <a href="{{ route('admin.admins.index') }}" class="menu-item {{ request()->routeIs('admin.admins.*') ? 'active' : '' }}">
+                    <i class="fas fa-users-cog"></i>
+                    <span>অ্যাডমিন ব্যবস্থাপনা</span>
+                </a>
                 <a href="{{ route('home') }}" class="menu-item">
                     <i class="fas fa-home"></i>
                     <span>হোম পেজ</span>
                 </a>
-                <a href="#" class="menu-item">
-                    <i class="fas fa-cog"></i>
-                    <span>সেটিংস</span>
-                </a>
+                <form action="{{ route('logout') }}" method="POST" style="margin: 0;">
+                    @csrf
+                    <button type="submit" class="menu-item" style="width: 100%; text-align: left; background: none; border: none; cursor: pointer; font-family: inherit; font-size: inherit; color: inherit;">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>লগআউট</span>
+                    </button>
+                </form>
             </div>
         </nav>
     </aside>

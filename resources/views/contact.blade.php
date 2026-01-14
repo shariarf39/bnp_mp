@@ -641,7 +641,7 @@
 @section('content')
 @php
     $leaderImage = \App\Models\SiteContent::getValue('leader_image');
-    $leaderName = \App\Models\SiteContent::getValue('leader_name', 'নেতার নাম');
+    $leaderName = \App\Models\SiteContent::getValue('leader_name', 'মির্জা আব্বাস');
     $leaderTitle = \App\Models\SiteContent::getValue('leader_title', 'রাজনৈতিক নেতা');
     $footerPhone = \App\Models\SiteContent::getValue('footer_phone', '+৮৮০ ১XXX-XXXXXX');
     $footerEmail = \App\Models\SiteContent::getValue('footer_email', 'info@example.com');
