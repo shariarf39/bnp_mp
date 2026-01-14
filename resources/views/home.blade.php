@@ -716,6 +716,7 @@
         cursor: pointer;
         box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        height: 280px;
     }
 
     .gallery-item:hover {
@@ -727,7 +728,9 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+        object-position: center;
         transition: all 0.6s;
+        display: block;
     }
 
     .gallery-item:hover img {
@@ -842,12 +845,27 @@
 
         .stats {
             grid-template-columns: 1fr;
-            gap: 1rem;
+            gap: 1.25rem;
             margin-top: -1rem;
+            padding: 1.5rem 1rem;
+            margin-left: 0.75rem;
+            margin-right: 0.75rem;
         }
 
         .stat-item {
             text-align: center;
+            padding: 1.25rem 1rem;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+            border-radius: 12px;
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            padding: 0 0.5rem;
         }
 
         .section-title {
@@ -860,10 +878,12 @@
 
         .gallery-grid {
             grid-template-columns: 1fr;
+            gap: 1rem;
         }
 
         .gallery-item {
             height: 220px;
+            aspect-ratio: auto;
         }
 
         .btn {
@@ -945,21 +965,27 @@
         /* Stats Section */
         .stats {
             margin-top: -2rem;
-            padding: 1.5rem 1rem;
-            gap: 1.5rem;
+            padding: 1.5rem 0.75rem;
+            gap: 1rem;
             grid-template-columns: 1fr 1fr;
+            max-width: 100%;
+            margin-left: 1rem;
+            margin-right: 1rem;
+            border-radius: 15px;
         }
 
         .stat-item {
-            padding: 1.5rem 1rem;
+            padding: 1rem 0.5rem;
         }
 
         .stat-number {
-            font-size: 2rem;
+            font-size: 1.75rem;
+            margin-bottom: 0.25rem;
         }
 
         .stat-label {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
+            line-height: 1.4;
         }
 
         .stat-item::after {
@@ -1046,14 +1072,23 @@
 
         .gallery-item {
             height: 180px;
+            aspect-ratio: auto;
+        }
+
+        .gallery-item img {
+            object-fit: cover;
+        }
+
+        .gallery-overlay {
+            padding: 1rem;
         }
 
         .gallery-overlay h4 {
-            font-size: 0.95rem;
+            font-size: 0.85rem;
         }
 
         .gallery-overlay p {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
         }
 
         /* Contact CTA */
