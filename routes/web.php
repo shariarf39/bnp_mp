@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\LeaderController;
 use App\Http\Controllers\Admin\ActivityController;
 use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\MessageController;
+use App\Http\Controllers\Admin\ContactSlideController;
 
 // Public Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -27,6 +28,7 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 // Admin Routes (Protected)
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('hero-slides', HeroSlideController::class);
+    Route::resource('contact-slides', ContactSlideController::class);
     Route::resource('activities', ActivityController::class);
     Route::get('content', [ContentController::class, 'index'])->name('content.index');
     Route::post('content', [ContentController::class, 'update'])->name('content.update');

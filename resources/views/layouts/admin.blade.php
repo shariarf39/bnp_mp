@@ -397,6 +397,10 @@
                     <i class="fas fa-images"></i>
                     <span>স্লাইডার ইমেজ</span>
                 </a>
+                <a href="{{ route('admin.contact-slides.index') }}" class="menu-item {{ request()->routeIs('admin.contact-slides.*') ? 'active' : '' }}">
+                    <i class="fas fa-photo-video"></i>
+                    <span>যোগাযোগ পেজ স্লাইডার</span>
+                </a>
                 <a href="{{ route('admin.activities.index') }}" class="menu-item {{ request()->routeIs('admin.activities.*') ? 'active' : '' }}">
                     <i class="fas fa-camera"></i>
                     <span>কার্যক্রম ছবি</span>

@@ -68,6 +68,41 @@
         transform: scale(1.05);
     }
 
+    /* Slider Overlay - Responsive */
+    .slider-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 220px;
+        background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.4) 70%, white 100%);
+        z-index: 1;
+    }
+
+    @media (max-width: 992px) {
+        .slider-overlay {
+            height: 180px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .slider-overlay {
+            height: 150px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .slider-overlay {
+            height: 120px;
+        }
+    }
+
+    @media (max-width: 360px) {
+        .slider-overlay {
+            height: 100px;
+        }
+    }
+
     /* Main Hero Section */
     .contact-hero {
         background: white;
@@ -188,6 +223,30 @@
         gap: 4rem;
         align-items: start;
         padding: 2rem;
+    }
+
+    /* Leader Wrapper */
+    .leader-wrapper {
+        display: flex;
+        justify-content: center;
+        position: relative;
+        z-index: 10;
+        padding: 2rem;
+        width: 100%;
+    }
+
+    @media (max-width: 768px) {
+        .leader-wrapper {
+            padding: 1.5rem 1rem;
+            margin-top: 100px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .leader-wrapper {
+            padding: 1rem 0.5rem;
+            margin-top: 80px;
+        }
     }
 
     /* Leader Section */
@@ -703,7 +762,8 @@
     @media (max-width: 992px) {
         .hero-main-content {
             grid-template-columns: 1fr;
-            gap: 3rem;
+            gap: 2rem;
+            padding: 1rem;
         }
 
         .leader-section {
@@ -715,44 +775,545 @@
         }
 
         .leader-image-container {
-            width: 280px;
-            height: 340px;
+            width: 150px;
+            height: 180px;
+        }
+
+        .leader-top {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .leader-info {
+            text-align: center;
+        }
+
+        .leader-info h2 {
+            font-size: 1.6rem;
         }
 
         .quick-contact-info {
-            display: none;
+            display: flex;
+        }
+
+        .contact-hero {
+            padding: 2rem 1rem;
+        }
+
+        .background-slider {
+            height: 180px;
+        }
+
+        .background-slider .slider-item {
+            min-width: 220px;
+            height: 140px;
         }
     }
 
-    @media (max-width: 576px) {
+    @media (max-width: 768px) {
         .contact-hero {
-            padding: 2rem 1rem;
+            padding: 1.5rem 0.75rem;
             min-height: auto;
         }
 
+        .background-slider {
+            height: 150px;
+        }
+
+        .background-slider .slider-track {
+            animation: scrollSlider 25s linear infinite;
+        }
+
+        .background-slider .slider-item {
+            min-width: 180px;
+            height: 120px;
+            transform: rotate(-3deg);
+        }
+
+        .background-slider .slider-item:nth-child(even) {
+            transform: rotate(3deg);
+            margin-top: 10px;
+        }
+
+        .background-slider .slider-item:nth-child(3n) {
+            transform: rotate(-2deg);
+            margin-top: -5px;
+        }
+
+        .background-slider .slider-item:nth-child(4n) {
+            transform: rotate(4deg);
+            margin-top: 8px;
+        }
+
+        .background-slider .slider-item img {
+            border-radius: 10px;
+            border-width: 3px;
+        }
+
+        .hero-main-content {
+            gap: 1.5rem;
+            padding: 0.5rem;
+        }
+
         .leader-image-container {
-            width: 220px;
-            height: 280px;
+            width: 130px;
+            height: 160px;
         }
 
-        .form-container {
-            padding: 2rem 1.5rem;
-        }
-
-        .form-row {
-            grid-template-columns: 1fr;
-        }
-
-        .form-header h2 {
-            font-size: 1.5rem;
+        .image-ring {
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border-width: 2px;
         }
 
         .leader-info h2 {
             font-size: 1.4rem;
         }
 
+        .leader-info p {
+            font-size: 0.9rem;
+        }
+
+        .leader-badge {
+            padding: 0.4rem 1rem;
+            font-size: 0.8rem;
+        }
+
+        .social-links-hero {
+            gap: 0.75rem;
+        }
+
+        .social-links-hero a {
+            width: 42px;
+            height: 42px;
+            font-size: 1rem;
+            border-radius: 12px;
+        }
+
+        .quick-contact-info {
+            gap: 0.6rem;
+        }
+
+        .quick-info-item {
+            padding: 0.7rem 1rem;
+            gap: 0.75rem;
+            border-radius: 10px;
+        }
+
+        .quick-info-item i {
+            width: 32px;
+            height: 32px;
+            font-size: 0.8rem;
+            border-radius: 8px;
+        }
+
+        .quick-info-item span,
+        .quick-info-item a {
+            font-size: 0.85rem;
+        }
+
+        .form-container {
+            padding: 1.5rem 1rem;
+            border-radius: 20px;
+        }
+
+        .form-header {
+            margin-bottom: 1rem;
+        }
+
+        .form-header h2 {
+            font-size: 1.3rem;
+        }
+
+        .form-header p {
+            font-size: 0.85rem;
+        }
+
+        .form-row {
+            grid-template-columns: 1fr;
+            gap: 0;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            font-size: 0.85rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            padding: 0.7rem 0.9rem;
+            font-size: 0.9rem;
+            border-radius: 10px;
+        }
+
+        .form-group textarea {
+            min-height: 80px;
+        }
+
+        .file-input-label {
+            padding: 1rem;
+            border-radius: 10px;
+        }
+
+        .file-input-label i {
+            font-size: 1.5rem;
+        }
+
+        .file-input-label span {
+            font-size: 0.85rem;
+        }
+
+        .submit-btn {
+            padding: 0.9rem;
+            font-size: 0.95rem;
+            border-radius: 10px;
+        }
+
+        .alert {
+            padding: 0.8rem 1rem;
+            border-radius: 10px;
+            font-size: 0.9rem;
+        }
+
+        /* Hide some animations on mobile for performance */
+        .gradient-orbs .orb {
+            filter: blur(60px);
+            opacity: 0.25;
+        }
+
+        .glow-lines {
+            display: none;
+        }
+
+        .floating-icons {
+            display: none;
+        }
+
+        /* CTA Section Mobile */
+        .cta-section {
+            padding: 3rem 1rem;
+        }
+
         .cta-content h2 {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .cta-content p {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-buttons {
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .cta-btn {
+            padding: 0.9rem 1.5rem;
+            font-size: 1rem;
+            width: 100%;
+            justify-content: center;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .contact-hero {
+            padding: 1rem 0.5rem;
+        }
+
+        .background-slider {
+            height: 120px;
+        }
+
+        .background-slider .slider-track {
+            gap: 1rem;
+            animation: scrollSlider 18s linear infinite;
+        }
+
+        .background-slider .slider-item {
+            min-width: 140px;
+            height: 95px;
+        }
+
+        .background-slider .slider-item img {
+            border-radius: 8px;
+            border-width: 2px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Overlay adjustment */
+        .contact-hero > div[style*="height: 220px"] {
+            height: 120px !important;
+        }
+
+        .leader-image-container {
+            width: 110px;
+            height: 135px;
+        }
+
+        .leader-image-container img {
+            border-radius: 18px;
+        }
+
+        .image-ring {
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            border-radius: 22px;
+        }
+
+        .leader-info h2 {
+            font-size: 1.25rem;
+        }
+
+        .leader-info p {
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .leader-badge {
+            padding: 0.35rem 0.9rem;
+            font-size: 0.75rem;
+        }
+
+        .social-links-hero {
+            gap: 0.6rem;
+            margin-top: 0.75rem;
+        }
+
+        .social-links-hero a {
+            width: 38px;
+            height: 38px;
+            font-size: 0.9rem;
+            border-radius: 10px;
+        }
+
+        .quick-info-item {
+            padding: 0.6rem 0.8rem;
+        }
+
+        .quick-info-item i {
+            width: 28px;
+            height: 28px;
+            font-size: 0.75rem;
+        }
+
+        .quick-info-item span,
+        .quick-info-item a {
+            font-size: 0.8rem;
+        }
+
+        .form-container {
+            padding: 1.25rem 0.9rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .form-header h2 {
+            font-size: 1.2rem;
+        }
+
+        .form-group label {
+            font-size: 0.8rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            padding: 0.65rem 0.8rem;
+            font-size: 0.85rem;
+            border-radius: 8px;
+        }
+
+        .submit-btn {
+            padding: 0.8rem;
+            font-size: 0.9rem;
+        }
+
+        .cta-section {
+            padding: 2.5rem 1rem;
+        }
+
+        .cta-content h2 {
+            font-size: 1.3rem;
+        }
+
+        .cta-content p {
+            font-size: 0.9rem;
+        }
+
+        .cta-btn {
+            padding: 0.8rem 1.25rem;
+            font-size: 0.9rem;
+            border-radius: 25px;
+        }
+
+        /* Gradient orbs smaller on mobile */
+        .orb-1 {
+            width: 200px;
+            height: 200px;
+        }
+
+        .orb-2 {
+            width: 150px;
+            height: 150px;
+        }
+
+        .orb-3 {
+            width: 180px;
+            height: 180px;
+        }
+
+        .orb-4 {
+            width: 120px;
+            height: 120px;
+        }
+    }
+
+    /* Extra small devices */
+    @media (max-width: 360px) {
+        .background-slider {
+            height: 100px;
+        }
+
+        .background-slider .slider-track {
+            animation: scrollSlider 15s linear infinite;
+        }
+
+        .background-slider .slider-item {
+            min-width: 120px;
+            height: 80px;
+        }
+
+        .leader-wrapper {
+            margin-top: 60px;
+        }
+
+        .leader-image-container {
+            width: 95px;
+            height: 115px;
+        }
+
+        .leader-info h2 {
+            font-size: 1.1rem;
+        }
+
+        .form-container {
+            padding: 1rem 0.75rem;
+        }
+
+        .form-header h2 {
+            font-size: 1.1rem;
+        }
+
+        .quick-info-item {
+            padding: 0.5rem 0.7rem;
+        }
+    }
+
+    /* Landscape mode on mobile */
+    @media (max-height: 500px) and (orientation: landscape) {
+        .contact-hero {
+            min-height: auto;
+            padding: 1rem;
+        }
+
+        .background-slider {
+            height: 100px;
+        }
+
+        .leader-top {
+            flex-direction: row;
+        }
+
+        .leader-image-container {
+            width: 100px;
+            height: 120px;
+        }
+
+        .hero-main-content {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
+    /* Touch device optimizations */
+    @media (hover: none) and (pointer: coarse) {
+        .quick-info-item:hover {
+            transform: none;
+        }
+
+        .social-links-hero a:hover {
+            transform: translateY(-3px);
+        }
+
+        .submit-btn:hover {
+            transform: none;
+        }
+
+        .submit-btn:active {
+            transform: scale(0.98);
+        }
+
+        .cta-btn:hover {
+            transform: none;
+        }
+
+        .cta-btn:active {
+            transform: scale(0.98);
+        }
+
+        .background-slider .slider-item:hover img {
+            transform: none;
+        }
+    }
+
+    /* Dark mode support */
+    @media (prefers-color-scheme: dark) {
+        /* Optional: uncomment to enable dark mode */
+        /*
+        .contact-hero {
+            background: #1a1a2e;
+        }
+        .form-container {
+            background: #2d2d44;
+            border-color: #3d3d5c;
+        }
+        */
+    }
+
+    /* Reduced motion preference */
+    @media (prefers-reduced-motion: reduce) {
+        .background-slider .slider-track {
+            animation: none;
+        }
+
+        .orb {
+            animation: none;
+        }
+
+        .glow-line {
+            animation: none;
+        }
+
+        .image-ring {
+            animation: none;
+        }
+
+        .float-icon {
+            animation: none;
+        }
+
+        .form-container::before {
+            animation: none;
         }
     }
 </style>
@@ -770,8 +1331,8 @@
     $youtubeUrl = \App\Models\SiteContent::getUrl('footer_youtube_url', '#');
     $twitterUrl = \App\Models\SiteContent::getUrl('footer_twitter_url', '#');
     
-    // Get hero slides for image slider
-    $heroSlides = \App\Models\HeroSlide::active()->ordered()->get();
+    // Get contact slides for image slider (uses ContactSlide model)
+    $contactSlides = \App\Models\ContactSlide::active()->ordered()->get();
 @endphp
 
 <!-- Main Hero Section with Spider Web Animation -->
@@ -779,7 +1340,7 @@
     <!-- Background Image Slider -->
     <div class="background-slider">
         <div class="slider-track" id="contactSliderTrack">
-            @forelse($heroSlides as $slide)
+            @forelse($contactSlides as $slide)
                 <div class="slider-item">
                     <img src="{{ asset('storage/app/public/' . $slide->image) }}" alt="{{ $slide->title }}">
                 </div>
@@ -799,7 +1360,7 @@
             @endforelse
             
             <!-- Duplicate set 2 -->
-            @forelse($heroSlides as $slide)
+            @forelse($contactSlides as $slide)
                 <div class="slider-item">
                     <img src="{{ asset('storage/app/public/' . $slide->image) }}" alt="{{ $slide->title }}">
                 </div>
@@ -819,7 +1380,7 @@
             @endforelse
             
             <!-- Duplicate set 3 -->
-            @forelse($heroSlides as $slide)
+            @forelse($contactSlides as $slide)
                 <div class="slider-item">
                     <img src="{{ asset('storage/app/public/' . $slide->image) }}" alt="{{ $slide->title }}">
                 </div>
@@ -839,7 +1400,7 @@
             @endforelse
             
             <!-- Duplicate set 4 -->
-            @forelse($heroSlides as $slide)
+            @forelse($contactSlides as $slide)
                 <div class="slider-item">
                     <img src="{{ asset('storage/app/public/' . $slide->image) }}" alt="{{ $slide->title }}">
                 </div>
@@ -859,7 +1420,7 @@
             @endforelse
             
             <!-- Duplicate set 5 -->
-            @forelse($heroSlides as $slide)
+            @forelse($contactSlides as $slide)
                 <div class="slider-item">
                     <img src="{{ asset('storage/app/public/' . $slide->image) }}" alt="{{ $slide->title }}">
                 </div>
@@ -879,7 +1440,7 @@
             @endforelse
             
             <!-- Duplicate set 6 -->
-            @forelse($heroSlides as $slide)
+            @forelse($contactSlides as $slide)
                 <div class="slider-item">
                     <img src="{{ asset('storage/app/public/' . $slide->image) }}" alt="{{ $slide->title }}">
                 </div>
@@ -901,7 +1462,7 @@
     </div>
 
     <!-- Transparent Overlay for smooth transition -->
-    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 220px; background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.4) 70%, white 100%); z-index: 1;"></div>
+    <div class="slider-overlay"></div>
 
     <!-- Animated Gradient Orbs -->
     <div class="gradient-orbs">
@@ -932,7 +1493,7 @@
     </div>
 
     <!-- Leader Section (Centered at Top) -->
-    <div style="display: flex; justify-content: center; position: relative; z-index: 10; padding: 2rem; width: 100%;">
+    <div class="leader-wrapper">
         <div class="leader-section">
             <!-- Image and Name/Title together -->
             <div class="leader-top">
