@@ -23,6 +23,7 @@
         height: 100%;
         align-items: center;
         will-change: transform;
+        width: max-content; /* Allow track to expand to fit all images */
     }
 
     @keyframes scrollSlider {
@@ -32,6 +33,7 @@
 
     .background-slider .slider-item {
         min-width: 300px;
+        max-width: 300px; /* Fixed width for consistent animation */
         height: 180px;
         position: relative;
         flex-shrink: 0;
@@ -870,6 +872,7 @@
 
         .background-slider .slider-item {
             min-width: 220px;
+            max-width: 220px;
             height: 140px;
         }
     }
@@ -885,12 +888,13 @@
         }
 
         .background-slider .slider-track {
-            animation: scrollSlider 25s linear infinite;
+            gap: 1.5rem;
         }
 
         .background-slider .slider-item {
-            min-width: 180px;
-            height: 120px;
+            min-width: 160px;
+            max-width: 160px;
+            height: 110px;
             transform: rotate(-3deg);
         }
 
@@ -1108,13 +1112,13 @@
         }
 
         .background-slider .slider-track {
-            gap: 1rem;
-            animation: scrollSlider 18s linear infinite;
+            gap: 0.8rem;
         }
 
         .background-slider .slider-item {
-            min-width: 140px;
-            height: 95px;
+            min-width: 120px;
+            max-width: 120px;
+            height: 85px;
         }
 
         .background-slider .slider-item img {
@@ -1269,12 +1273,13 @@
         }
 
         .background-slider .slider-track {
-            animation: scrollSlider 15s linear infinite;
+            gap: 0.6rem;
         }
 
         .background-slider .slider-item {
-            min-width: 120px;
-            height: 80px;
+            min-width: 100px;
+            max-width: 100px;
+            height: 70px;
         }
 
         .leader-wrapper {
@@ -1424,120 +1429,20 @@
     <div class="background-slider">
         <div class="slider-track" id="contactSliderTrack">
             @forelse($contactSlides as $slide)
-                <div class="slider-item">
+                <div class="slider-item original-item">
                     <img src="{{ asset('storage/app/public/' . $slide->image) }}" alt="{{ $slide->title }}">
                 </div>
             @empty
-                <div class="slider-item">
+                <div class="slider-item original-item">
                     <img src="{{ asset('images/Dhaner-Shish-_2 (1).webp') }}" alt="Image 1">
                 </div>
-                <div class="slider-item">
+                <div class="slider-item original-item">
                     <img src="{{ asset('images/bnp_logo.png') }}" alt="Image 2">
                 </div>
-                <div class="slider-item">
+                <div class="slider-item original-item">
                     <img src="{{ asset('images/Dhaner-Shish-_2 (1).webp') }}" alt="Image 3">
                 </div>
-                <div class="slider-item">
-                    <img src="{{ asset('images/bnp_logo.png') }}" alt="Image 4">
-                </div>
-            @endforelse
-            
-            <!-- Duplicate set 2 -->
-            @forelse($contactSlides as $slide)
-                <div class="slider-item">
-                    <img src="{{ asset('storage/app/public/' . $slide->image) }}" alt="{{ $slide->title }}">
-                </div>
-            @empty
-                <div class="slider-item">
-                    <img src="{{ asset('images/Dhaner-Shish-_2 (1).webp') }}" alt="Image 1">
-                </div>
-                <div class="slider-item">
-                    <img src="{{ asset('images/bnp_logo.png') }}" alt="Image 2">
-                </div>
-                <div class="slider-item">
-                    <img src="{{ asset('images/Dhaner-Shish-_2 (1).webp') }}" alt="Image 3">
-                </div>
-                <div class="slider-item">
-                    <img src="{{ asset('images/bnp_logo.png') }}" alt="Image 4">
-                </div>
-            @endforelse
-            
-            <!-- Duplicate set 3 -->
-            @forelse($contactSlides as $slide)
-                <div class="slider-item">
-                    <img src="{{ asset('storage/app/public/' . $slide->image) }}" alt="{{ $slide->title }}">
-                </div>
-            @empty
-                <div class="slider-item">
-                    <img src="{{ asset('images/Dhaner-Shish-_2 (1).webp') }}" alt="Image 1">
-                </div>
-                <div class="slider-item">
-                    <img src="{{ asset('images/bnp_logo.png') }}" alt="Image 2">
-                </div>
-                <div class="slider-item">
-                    <img src="{{ asset('images/Dhaner-Shish-_2 (1).webp') }}" alt="Image 3">
-                </div>
-                <div class="slider-item">
-                    <img src="{{ asset('images/bnp_logo.png') }}" alt="Image 4">
-                </div>
-            @endforelse
-            
-            <!-- Duplicate set 4 -->
-            @forelse($contactSlides as $slide)
-                <div class="slider-item">
-                    <img src="{{ asset('storage/app/public/' . $slide->image) }}" alt="{{ $slide->title }}">
-                </div>
-            @empty
-                <div class="slider-item">
-                    <img src="{{ asset('images/Dhaner-Shish-_2 (1).webp') }}" alt="Image 1">
-                </div>
-                <div class="slider-item">
-                    <img src="{{ asset('images/bnp_logo.png') }}" alt="Image 2">
-                </div>
-                <div class="slider-item">
-                    <img src="{{ asset('images/Dhaner-Shish-_2 (1).webp') }}" alt="Image 3">
-                </div>
-                <div class="slider-item">
-                    <img src="{{ asset('images/bnp_logo.png') }}" alt="Image 4">
-                </div>
-            @endforelse
-            
-            <!-- Duplicate set 5 -->
-            @forelse($contactSlides as $slide)
-                <div class="slider-item">
-                    <img src="{{ asset('storage/app/public/' . $slide->image) }}" alt="{{ $slide->title }}">
-                </div>
-            @empty
-                <div class="slider-item">
-                    <img src="{{ asset('images/Dhaner-Shish-_2 (1).webp') }}" alt="Image 1">
-                </div>
-                <div class="slider-item">
-                    <img src="{{ asset('images/bnp_logo.png') }}" alt="Image 2">
-                </div>
-                <div class="slider-item">
-                    <img src="{{ asset('images/Dhaner-Shish-_2 (1).webp') }}" alt="Image 3">
-                </div>
-                <div class="slider-item">
-                    <img src="{{ asset('images/bnp_logo.png') }}" alt="Image 4">
-                </div>
-            @endforelse
-            
-            <!-- Duplicate set 6 -->
-            @forelse($contactSlides as $slide)
-                <div class="slider-item">
-                    <img src="{{ asset('storage/app/public/' . $slide->image) }}" alt="{{ $slide->title }}">
-                </div>
-            @empty
-                <div class="slider-item">
-                    <img src="{{ asset('images/Dhaner-Shish-_2 (1).webp') }}" alt="Image 1">
-                </div>
-                <div class="slider-item">
-                    <img src="{{ asset('images/bnp_logo.png') }}" alt="Image 2">
-                </div>
-                <div class="slider-item">
-                    <img src="{{ asset('images/Dhaner-Shish-_2 (1).webp') }}" alt="Image 3">
-                </div>
-                <div class="slider-item">
+                <div class="slider-item original-item">
                     <img src="{{ asset('images/bnp_logo.png') }}" alt="Image 4">
                 </div>
             @endforelse
@@ -1821,6 +1726,53 @@
         videoPreview.src = '';
     }
 
-    // Image slider uses CSS animation - no JavaScript needed
+    // Dynamic infinite slider - works with ANY number of images (unlimited)
+    function setupInfiniteSlider() {
+        const sliderTrack = document.getElementById('contactSliderTrack');
+        if (!sliderTrack) return;
+        
+        // Get original items only
+        const originalItems = sliderTrack.querySelectorAll('.original-item');
+        const totalImages = originalItems.length;
+        
+        if (totalImages === 0) return;
+        
+        // Remove any previously cloned items
+        const clonedItems = sliderTrack.querySelectorAll('.cloned-item');
+        clonedItems.forEach(item => item.remove());
+        
+        // Clone all original items once for seamless infinite loop
+        originalItems.forEach(item => {
+            const clone = item.cloneNode(true);
+            clone.classList.remove('original-item');
+            clone.classList.add('cloned-item');
+            sliderTrack.appendChild(clone);
+        });
+        
+        // Calculate animation duration based on number of images
+        // Speed: approximately 1.5 seconds per image on mobile, 2 seconds on desktop
+        const isMobile = window.innerWidth <= 768;
+        const speedPerImage = isMobile ? 1.5 : 2;
+        const minDuration = isMobile ? 15 : 30;
+        const animationDuration = Math.max(minDuration, totalImages * speedPerImage);
+        
+        // Remove existing animation
+        sliderTrack.style.animation = 'none';
+        sliderTrack.offsetHeight; // Force reflow
+        
+        // Apply new animation with calculated duration
+        sliderTrack.style.animation = `scrollSlider ${animationDuration}s linear infinite`;
+        
+        console.log('Infinite Slider: ' + totalImages + ' images, ' + animationDuration + 's duration');
+    }
+    
+    // Run on load and resize
+    setupInfiniteSlider();
+    
+    let resizeTimeout;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(setupInfiniteSlider, 250);
+    });
 </script>
 @endsection
